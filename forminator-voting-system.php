@@ -25,8 +25,6 @@ require_once __DIR__ . '/classes/class-fvs-logger.php';
 
 // Fvs_Logger::log("testing the logger.");
 
-
-
 $results_fetcher = new Results_Fetcher();
 
 $settings_processor    = new Settings_Processor();
