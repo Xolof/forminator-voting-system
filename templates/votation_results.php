@@ -25,7 +25,7 @@ foreach ($votation_results_db as $row) {
 
 <h1>Resultat</h1>
 
-<?php if (!count(VOTATION_FORM_IDS)): ?>
+<?php if (!count(FVS_VOTATION_FORM_IDS)): ?>
   <p>
     Inga formulär har valts.&nbsp
     <a href="<?= get_admin_url(); ?>admin.php?page=render_votation_settings">Välj formulär i inställningarna.</a>

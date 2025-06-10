@@ -3,7 +3,7 @@ if (!defined('ABSPATH')) {
   exit;
 }
 
-$existing_votation_form_ids = VOTATION_FORM_IDS;
+$existing_votation_form_ids = FVS_VOTATION_FORM_IDS;
 
 ?>
 
@@ -34,9 +34,9 @@ $existing_votation_form_ids = VOTATION_FORM_IDS;
       <br>
       <fieldset>
         <legend>Tillåt flera inlämningar från samma IP-adress</legend>
-        <select name="allow_multiple_votes_from_same_ip" id="allow_multiple_votes_from_same_ip">
-        <option value="yes" <?= ALLOW_MULTIPLE_VOTES_FROM_SAME_IP == 'yes' ? 'selected' : null ?>>Ja</option>
-        <option value="no" <?= ALLOW_MULTIPLE_VOTES_FROM_SAME_IP == 'no' ? 'selected' : null ?>>Nej</option> 
+        <select name="fvs_allow_multiple_votes_from_same_ip" id="fvs_allow_multiple_votes_from_same_ip">
+        <option value="yes" <?= FVS_ALLOW_MULTIPLE_VOTES_FROM_SAME_IP == 'yes' ? 'selected' : null ?>>Ja</option>
+        <option value="no" <?= FVS_ALLOW_MULTIPLE_VOTES_FROM_SAME_IP == 'no' ? 'selected' : null ?>>Nej</option>
         </select> 
       </fieldset>
       <br>
@@ -47,7 +47,7 @@ $existing_votation_form_ids = VOTATION_FORM_IDS;
           name="blocked_ips" 
           rows="5" 
           cols="35"
-        ><?= htmlentities(implode(',', IP_BLOCK_LIST)) ?></textarea>
+        ><?= htmlentities(implode(',', FVS_IP_BLOCK_LIST)) ?></textarea>
       </fieldset>
       <br>
       <input type="hidden" name="action" value="fvs_form_response" />

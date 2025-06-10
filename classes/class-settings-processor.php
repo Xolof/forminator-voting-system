@@ -82,12 +82,12 @@ class Settings_Processor {
 	}
 
 	protected function process_multiple_votes_from_same_ip(): mixed {
-		$allow_multiple_votes_from_same_ip = $_POST['allow_multiple_votes_from_same_ip'];
-		if ( isset( $allow_multiple_votes_from_same_ip ) ) {
-			if ( ! in_array( $allow_multiple_votes_from_same_ip, array( 'yes', 'no' ) ) ) {
+		$fvs_allow_multiple_votes_from_same_ip = $_POST['fvs_allow_multiple_votes_from_same_ip'];
+		if ( isset( $fvs_allow_multiple_votes_from_same_ip ) ) {
+			if ( ! in_array( $fvs_allow_multiple_votes_from_same_ip, array( 'yes', 'no' ) ) ) {
 				$this->fvs_wp_die( 'Option update failed.', self::SETTINGS_PAGE_URL );
 			}
-			return $this->process_option( 'allow_multiple_votes_from_same_ip', $allow_multiple_votes_from_same_ip );
+			return $this->process_option( 'fvs_allow_multiple_votes_from_same_ip', $fvs_allow_multiple_votes_from_same_ip );
 		}
 	}
 

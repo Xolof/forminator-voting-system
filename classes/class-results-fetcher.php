@@ -37,7 +37,7 @@ class Results_Fetcher {
 						$frmt_form_entry_meta,
 						$postmeta,
 					),
-					VOTATION_FORM_IDS,
+					FVS_VOTATION_FORM_IDS,
 					array( $frmt_form_entry_meta )
 				)
 			)
@@ -73,7 +73,7 @@ class Results_Fetcher {
 						$frmt_form_entry,
 						$frmt_form_entry_meta,
 					),
-					VOTATION_FORM_IDS,
+					FVS_VOTATION_FORM_IDS,
 					array( $frmt_form_entry_meta )
 				)
 			)
@@ -82,7 +82,7 @@ class Results_Fetcher {
 
 	protected function get_votation_form_id_placeholders() {
 		$votation_form_id_placeholders = '';
-		foreach ( VOTATION_FORM_IDS as $id ) {
+		foreach ( FVS_VOTATION_FORM_IDS as $id ) {
 			$votation_form_id_placeholders .= '%d,';
 		}
 		return rtrim( $votation_form_id_placeholders, ',' );

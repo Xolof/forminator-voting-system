@@ -12,7 +12,7 @@ class Menu_Manager {
 		$this->results_fetcher = $results_fetcher;
 	}
 
-	public function add_menu_page(): void {
+	public function add_menu_pages(): void {
 		add_menu_page(
 			'Plugin Title',
 			'Plugin Title',
@@ -50,7 +50,7 @@ class Menu_Manager {
 	}
 
 	public function render_votation_results() {
-		if ( ! VOTATION_FORM_IDS ) {
+		if ( ! FVS_VOTATION_FORM_IDS ) {
 			require_once __DIR__ . '/../templates/votation_results.php';
 			return;
 		}

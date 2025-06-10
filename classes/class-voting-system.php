@@ -26,12 +26,9 @@ class Voting_System {
 	}
 
 	public function init(): void {
-		define( 'ALLOW_MULTIPLE_VOTES_FROM_SAME_IP', json_decode( get_option( 'allow_multiple_votes_from_same_ip' ) ) ?? 'yes' );
-		define( 'IP_BLOCK_LIST', json_decode( get_option( 'fvs_votation_blocked_ips' ) ) ?? array() );
-		define( 'VOTATION_FORM_IDS', json_decode( get_option( 'fvs_votation_forminator_form_ids' ) ) ?? array() );
-		define( 'IP_BLOCKED_MESSAGE', 'Din IP-adress har blockerats.' );
-		define( 'ONLY_VOTE_ONE_TIME_MESSAGE', 'Du har redan röstat på det här alternativet med den här epostadressen.' );
-		define( 'ONLY_VOTE_ONE_TIME_PER_IP_MESSAGE', 'Någon har redan röstat på det här alternativet med den här IP-adressen.' );
+		define( 'FVS_ALLOW_MULTIPLE_VOTES_FROM_SAME_IP', json_decode( get_option( 'fvs_allow_multiple_votes_from_same_ip' ) ) ?? 'yes' );
+		define( 'FVS_IP_BLOCK_LIST', json_decode( get_option( 'fvs_votation_blocked_ips' ) ) ?? array() );
+		define( 'FVS_VOTATION_FORM_IDS', json_decode( get_option( 'fvs_votation_forminator_form_ids' ) ) ?? array() );
 
 		$this->initiate_session();
 		$this->add_menu_pages();
@@ -39,19 +36,17 @@ class Voting_System {
 		$this->set_admin_notices();
 		$this->set_forminator_hooks();
 		$this->add_styles();
+		$this->load_textdomain();
+		$this->register_deactivation_hook();
 	}
 
 	protected function set_forminator_hooks(): void {
-		add_filter( 'forminator_custom_form_submit_errors', array( $this->forminator_customizer, 'forminator_submit_errors_block' ), 51, 3 );
-		add_filter( 'forminator_custom_form_invalid_form_message', array( $this->forminator_customizer, 'forminator_invalid_form_message_block' ), 50, 3 );
+		add_filter( 'forminator_custom_form_submit_errors', array( $this->forminator_customizer, 'submit_errors_ip_blocked' ), 9, 3 );
+		add_filter( 'forminator_custom_form_submit_errors', array( $this->forminator_customizer, 'submit_errors_email' ), 10, 3 );
+		add_filter( 'forminator_custom_form_submit_errors', array( $this->forminator_customizer, 'submit_errors_ip_already_voted' ), 11, 3 );
 
-		add_filter( 'forminator_custom_form_submit_errors', array( $this->forminator_customizer, 'forminator_submit_errors_email' ), 31, 3 );
-		add_filter( 'forminator_custom_form_invalid_form_message', array( $this->forminator_customizer, 'forminator_invalid_form_message_email' ), 30, 3 );
-
-		if ( ALLOW_MULTIPLE_VOTES_FROM_SAME_IP === 'no' ) {
-			add_filter( 'forminator_custom_form_submit_errors', array( $this->forminator_customizer, 'forminator_submit_errors_same_ip' ), 41, 3 );
-			add_filter( 'forminator_custom_form_invalid_form_message', array( $this->forminator_customizer, 'forminator_invalid_form_message_same_ip' ), 40, 2 );
-		}
+		add_filter('forminator_form_submit_response', array( $this->forminator_customizer, 'custom_error_message' ), 20, 2);
+		add_filter('forminator_form_ajax_submit_response', array( $this->forminator_customizer, 'custom_error_message' ), 20, 2);
 	}
 
 	protected function process_settings(): void {
@@ -59,33 +54,32 @@ class Voting_System {
 	}
 
 	protected function add_menu_pages(): void {
-		add_action( 'admin_menu', array( $this->menu_manager, 'add_menu_page' ) );
+		add_action( 'admin_menu', array( $this->menu_manager, 'add_menu_pages' ) );
 	}
 
 	protected function initiate_session(): void {
-		add_action( 'init', array( $this, 'fvs_session_init' ) );
-	}
-
-	public function fvs_session_init(): void {
-		if ( session_status() === PHP_SESSION_NONE ) {
-			session_start();
-		}
-		session_write_close();
+		add_action(
+			'init',
+			function () {
+				if ( session_status() === PHP_SESSION_NONE ) {
+					session_start();
+				}
+				session_write_close();
+			}
+		);
 	}
 
 	protected function set_admin_notices(): void {
-		add_action( 'admin_notices', array( $this, 'print_plugin_admin_notices' ) );
-	}
-
-	public function print_plugin_admin_notices(): void {
-		if ( $flash = get_transient( 'fvs_flash_message' ) ) {
-			printf(
-				'<div class="notice notice-%s is-dismissible"><p>%s</p></div>',
-				esc_attr( $flash['type'] ),
-				esc_html( $flash['message'] )
-			);
-			delete_transient( 'fvs_flash_message' );
-		}
+		add_action( 'admin_notices', function() {
+			if ( $flash = get_transient( 'fvs_flash_message' ) ) {
+				printf(
+					'<div class="notice notice-%s is-dismissible"><p>%s</p></div>',
+					esc_attr( $flash['type'] ),
+					esc_html( $flash['message'] )
+				);
+				delete_transient( 'fvs_flash_message' );
+			}
+		} );
 	}
 
 	protected function add_styles(): void {
@@ -93,12 +87,41 @@ class Voting_System {
 			'admin_enqueue_scripts',
 			function () {
 				wp_enqueue_style(
-					'fvs-plugin-styles',
-					plugins_url( '../assets/css/fvs-styles.css', __FILE__ ),
+					'fvs-plugin-admin-styles',
+					plugins_url( '../assets/css/fvs-admin-styles.css', __FILE__ ),
 					array(),
 					'1.0',
 					'all'
 				);
+			}
+		);
+	}
+
+	protected function load_textdomain() {
+		add_action( 'plugins_loaded', function() {
+			load_plugin_textdomain( 'fvs', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );		
+		} );
+	}
+
+	protected function register_deactivation_hook(): void {
+		$main_plugin_file = plugin_dir_path(__DIR__) . 'forminator-voting-system.php';
+
+		register_deactivation_hook(
+			plugin_basename($main_plugin_file),
+			function() {
+				$options = [
+					'fvs_allow_multiple_votes_from_same_ip',
+					'fvs_votation_blocked_ips',
+					'fvs_votation_forminator_form_ids',
+					'fvs_settings',
+					'fvs_db_version'
+				];
+
+				foreach($options as $option) {
+					if ( get_option( $option ) ) {
+						delete_option( $option );
+					}
+				}
 			}
 		);
 	}

@@ -22,6 +22,7 @@ require_once __DIR__ . '/classes/class-settings-processor.php';
 require_once __DIR__ . '/classes/class-results-fetcher.php';
 require_once __DIR__ . '/classes/class-menu-manager.php';
 require_once __DIR__ . '/classes/class-fvs-logger.php';
+require_once __DIR__ . '/helpers/functions.php';
 
 // Fvs_Logger::log("testing the logger.");
 
@@ -38,3 +39,23 @@ $voting_system = new Voting_System(
 );
 
 $voting_system->init();
+
+
+// register_deactivation_hook(
+// 	__FILE__,
+// 	function() {
+// 		$options = [
+// 			'fvs_allow_multiple_votes_from_same_ip',
+// 			'fvs_votation_blocked_ips',
+// 			'fvs_votation_forminator_form_ids',
+// 			'fvs_settings',
+// 			'fvs_db_version'
+// 		];
+
+// 		foreach($options as $option) {
+// 			if ( get_option( $option ) ) {
+// 				delete_option( $option );
+// 			}
+// 		}
+// 	}
+// );
