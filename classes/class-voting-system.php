@@ -98,6 +98,7 @@ class Voting_System {
 	}
 
 	protected function load_textdomain() {
+		var_dump(dirname( plugin_basename(__DIR__ ) ) . '/languages');
 		add_action( 'plugins_loaded', function() {
 			load_plugin_textdomain( 'fvs', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );		
 		} );
