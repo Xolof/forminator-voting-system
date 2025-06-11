@@ -29,8 +29,6 @@ $settings_processor    = new Settings_Processor();
 $menu_manager          = new Menu_Manager( $results_fetcher );
 $forminator_customizer = new Forminator_Customizer( $results_fetcher );
 
-// Fvs_logger::log( "From the FVS logger class!" );
-
 $voting_system = new Voting_System(
 	$settings_processor,
 	$menu_manager,
