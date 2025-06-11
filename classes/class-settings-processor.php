@@ -21,7 +21,9 @@ class Settings_Processor {
 	protected const SETTINGS_PAGE_URL = 'admin.php?page=render_votation_settings';
 
 	/**
-	 * Process settings.
+	 * Main method for processing settings.
+	 *
+	 * We check the nonce here.
 	 *
 	 * @return void
 	 */
@@ -74,10 +76,10 @@ class Settings_Processor {
 	 * @return mixed
 	 */
 	protected function process_blocked_ips(): mixed {
-		if ( ! isset( $_POST['blocked_ips'] ) ) {
+		if ( ! isset( $_POST['blocked_ips'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$blocked_ips = array();
 		} else {
-			$blocked_ips = sanitize_text_field( wp_unslash( $_POST['blocked_ips'] ) );
+			$blocked_ips = sanitize_text_field( wp_unslash( $_POST['blocked_ips'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		}
 
 		if ( gettype( $blocked_ips ) !== 'string' ) {
@@ -110,8 +112,8 @@ class Settings_Processor {
 	 * @return mixed
 	 */
 	protected function process_form_ids(): mixed {
-		if ( isset( $_POST['form_ids'] ) ) {
-			$votation_forminator_form_ids = array_keys( $_POST['form_ids'] );
+		if ( isset( $_POST['form_ids'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$votation_forminator_form_ids = array_keys( wp_unslash( array_map( 'sanitize_key', $_POST['form_ids'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		} else {
 			$votation_forminator_form_ids = array();
 		}
@@ -131,8 +133,8 @@ class Settings_Processor {
 	 * @return mixed
 	 */
 	protected function process_multiple_votes_from_same_ip(): mixed {
-		if ( isset( $_POST['fvs_allow_multiple_votes_from_same_ip'] ) ) {
-			$fvs_allow_multiple_votes_from_same_ip = sanitize_text_field( wp_unslash( $_POST['fvs_allow_multiple_votes_from_same_ip'] ) );
+		if ( isset( $_POST['fvs_allow_multiple_votes_from_same_ip'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$fvs_allow_multiple_votes_from_same_ip = sanitize_text_field( wp_unslash( $_POST['fvs_allow_multiple_votes_from_same_ip'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 			if ( ! in_array( $fvs_allow_multiple_votes_from_same_ip, array( 'yes', 'no' ), true ) ) {
 				$this->fvs_wp_die( esc_html__( 'Option update failed.', 'fvs' ), self::SETTINGS_PAGE_URL );
@@ -144,7 +146,7 @@ class Settings_Processor {
 	/**
 	 * Save the option if it has a new value, create it if it does not exist.
 	 *
-	 * @param string $option_name
+	 * @param string       $option_name
 	 * @param array|string $post_data
 	 * @return boolean
 	 */

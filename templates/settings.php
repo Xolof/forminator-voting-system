@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$existing_votation_form_ids = FVS_VOTATION_FORM_IDS;
+$fvs_existing_votation_form_ids = FVS_VOTATION_FORM_IDS;
 
 ?>
 
@@ -25,15 +25,15 @@ $existing_votation_form_ids = FVS_VOTATION_FORM_IDS;
 	>
 		<fieldset>
 		<legend><?php echo esc_html__( 'Form for votation', 'fvs' ); ?></legend>
-		<?php foreach ( $fvs_votation_forminator_forms as $form ) : ?>
+		<?php foreach ( $fvs_votation_forminator_forms as $fvs_form ) : ?>
 			<div>
 			<input
 				type="checkbox"
-				id="<?php echo esc_html( $form->id ); ?>"
-				name="form_ids[<?php echo esc_html( $form->id ); ?>]"
-				<?php echo in_array( $form->id, $existing_votation_form_ids, true ) ? 'checked' : null; ?>
+				id="<?php echo esc_html( $fvs_form->id ); ?>"
+				name="form_ids[<?php echo esc_html( $fvs_form->id ); ?>]"
+				<?php echo in_array( $fvs_form->id, $fvs_existing_votation_form_ids, true ) ? 'checked' : null; ?>
 			/>
-			<label for="<?php echo esc_html( $form->id ); ?>"><?php echo esc_html( $form->settings['formName'] ); ?></label>
+			<label for="<?php echo esc_html( $fvs_form->id ); ?>"><?php echo esc_html( $fvs_form->settings['formName'] ); ?></label>
 			</div>
 		<?php endforeach; ?>
 		</fieldset>

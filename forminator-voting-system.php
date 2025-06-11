@@ -22,7 +22,7 @@ require_once __DIR__ . '/classes/class-settings-processor.php';
 require_once __DIR__ . '/classes/class-results-fetcher.php';
 require_once __DIR__ . '/classes/class-menu-manager.php';
 require_once __DIR__ . '/classes/class-fvs-logger.php';
-require_once __DIR__ . '/helpers/functions.php';
+require_once __DIR__ . '/debug/functions.php';
 
 $results_fetcher       = new Results_Fetcher();
 $settings_processor    = new Settings_Processor();

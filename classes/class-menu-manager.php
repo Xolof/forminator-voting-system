@@ -77,8 +77,8 @@ class Menu_Manager {
 			require_once __DIR__ . '/../templates/results.php';
 			return;
 		}
-		$votation_results_db     = $this->results_fetcher->get_votation_results();
-		$votes_per_ip_results_db = $this->results_fetcher->get_votes_per_ip_results();
+		$fvs_votation_results_db     = $this->results_fetcher->get_votation_results();
+		$fvs_votes_per_ip_results_db = $this->results_fetcher->get_votes_per_ip_results();
 		require_once __DIR__ . '/../templates/results.php';
 	}
 

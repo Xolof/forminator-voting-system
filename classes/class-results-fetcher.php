@@ -80,7 +80,7 @@ class Results_Fetcher {
 		$votation_form_id_placeholders = $this->get_votation_form_id_placeholders();
 		$votes_per_ip_query            = <<<EOD
 		SELECT
-			%i.meta_value as IP_address,
+			%i.meta_value as ip_address,
 			COUNT(*) as num_votes
 			FROM %i
 		LEFT JOIN %i
@@ -88,7 +88,7 @@ class Results_Fetcher {
 		WHERE
 			form_id IN ($votation_form_id_placeholders)
 			AND %i.meta_key="_forminator_user_ip"
-		GROUP BY IP_address;
+		GROUP BY ip_address;
 		EOD;
 		$statement                     = $wpdb->prepare(
 			$votes_per_ip_query,

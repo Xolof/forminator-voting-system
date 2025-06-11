@@ -39,27 +39,27 @@ class Forminator_Customizer {
 	 * @return array
 	 */
 	public function custom_error_message( array $response, int $form_id ): array {
-		if ( in_array( intval( $form_id ), FVS_VOTATION_FORM_IDS, true ) ) {
-			if ( ! $response['success'] && isset( $response['message'] ) ) {
+		if ( ! in_array( intval( $form_id ), FVS_VOTATION_FORM_IDS, true ) ) {
+			return $response;
+		}
+		if ( ! $response['success'] && isset( $response['message'] ) ) {
+			$response['message'] = '<p>' . esc_html__( 'Invalid form data:', 'fvs' ) . '</p>';
 
-				$response['message'] = '<p>' . esc_html__( 'Invalid form data:', 'fvs' ) . '</p>';
+			$errors_string = '';
 
-				$errors_string = '';
+			foreach ( $response['errors'] as $error_array ) {
+				foreach ( $error_array as $error ) {
+					$sanitized_error = wp_kses_post( $error );
 
-				foreach ( $response['errors'] as $error_array ) {
-					foreach ( $error_array as $error ) {
-						$sanitized_error = wp_kses_post( $error );
-
-						$errors_string .= <<<EOD
-							<li class="fvs-forminator-error">
-								$sanitized_error
-							</li>
-						EOD;
-					}
+					$errors_string .= <<<EOD
+						<li class="fvs-forminator-error">
+							$sanitized_error
+						</li>
+					EOD;
 				}
-
-				$response['message'] .= "<ul>$errors_string</ul>";
 			}
+
+			$response['message'] .= "<ul>$errors_string</ul>";
 		}
 		return $response;
 	}
@@ -76,7 +76,7 @@ class Forminator_Customizer {
 			$user_ip = Forminator_Geo::get_user_ip();
 			if ( in_array( $user_ip, FVS_IP_BLOCK_LIST, true ) ) {
 				// Put each error in an array due to how Forminator prints errors in a hidden list.
-				$submit_errors[]['fvs-ip-blocked'] = esc_html__( self::IP_BLOCKED_MESSAGE, 'fvs' );
+				$submit_errors[]['fvs-ip-blocked'] = esc_html__( self::IP_BLOCKED_MESSAGE, 'fvs' ); // phpcs:ignore
 			}
 		}
 		return $submit_errors;
@@ -100,7 +100,7 @@ class Forminator_Customizer {
 			$email = $field_data[0]['value'];
 			if ( $this->email_has_already_voted( $email, $form_id ) ) {
 				// Put each error in an array due to how Forminator prints errors in a hidden list.
-				$submit_errors[]['fvs-email-already-voted'] = esc_html__( self::ONLY_VOTE_ONE_TIME_MESSAGE, 'fvs' );
+				$submit_errors[]['fvs-email-already-voted'] = esc_html__( self::ONLY_VOTE_ONE_TIME_MESSAGE, 'fvs' ); // phpcs:ignore
 			}
 		}
 		return $submit_errors;
@@ -124,7 +124,7 @@ class Forminator_Customizer {
 
 		if ( $this->ip_already_voted( $form_id ) ) {
 			// Put each error in an array due to how Forminator prints errors in a hidden list.
-			$submit_errors[]['fvs-ip-already-voted'] = esc_html__( self::IP_ALREADY_VOTED_MESSAGE, 'fvs' );
+			$submit_errors[]['fvs-ip-already-voted'] = esc_html__( self::IP_ALREADY_VOTED_MESSAGE, 'fvs' ); // phpcs:ignore
 		}
 		return $submit_errors;
 	}
@@ -154,9 +154,9 @@ class Forminator_Customizer {
 		) as email_already_voted;
 		SQL;
 
-		$result = $wpdb->get_results(
+		$result = $wpdb->get_results( // phpcs:ignore
 			$wpdb->prepare(
-				$email_already_voted_query,
+				$email_already_voted_query, // phpcs:ignore
 				array( $frmt_form_entry, $frmt_form_entry_meta, $form_id, $email )
 			)
 		);
