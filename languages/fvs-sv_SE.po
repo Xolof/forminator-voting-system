@@ -181,3 +181,16 @@ msgstr "Möjliggör blockering av IP-adresser."
 
 msgid "Manual"
 msgstr "Manual"
+
+msgid "No forms have been selected."
+msgstr "Inga formulär har valts."
+
+msgid "Your IP address has been blocked."
+msgstr "Din IP-adress har blockerats."
+
+msgid "You have already voted for this alternative with this email address."
+msgstr "Du har redan röstat på det här alternativet med den här epostadressen."
+
+msgid "Someone has already voted for this alternative with this IP address."
+msgstr ""
+"Någon har redan röstat på det här alternativet med den här IP-adressen."
