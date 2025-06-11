@@ -5,7 +5,7 @@
  * Description:     A voting system using Forminator forms
  * Author:          Olof Johansson
  * Author URI:      https://oljo.online
- * Text Domain:     forminator_voting_system
+ * Text Domain:     fvs
  * Domain Path:     /languages
  * Version:         0.1.0
  *
@@ -25,7 +25,6 @@ require_once __DIR__ . '/classes/class-fvs-logger.php';
 require_once __DIR__ . '/helpers/functions.php';
 
 $results_fetcher = new Results_Fetcher();
-
 $settings_processor    = new Settings_Processor();
 $menu_manager          = new Menu_Manager($results_fetcher);
 $forminator_customizer = new Forminator_Customizer($results_fetcher);

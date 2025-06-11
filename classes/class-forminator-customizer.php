@@ -20,7 +20,7 @@ class Forminator_Customizer {
 		if ( in_array( intval( $form_id ), FVS_VOTATION_FORM_IDS, true ) ) {
 			if (!$response['success'] && isset($response['message'])) {
 
-				$response['message'] = "<p>Ogiltigt ifyllt formulär:</p>";
+				$response['message'] = '<p>' . esc_html__('Invalid form data:', 'fvs' ) . '</p>';
 
 				$errors_string = '';
 		
@@ -57,7 +57,7 @@ class Forminator_Customizer {
 		if ( in_array( intval( $form_id ), FVS_VOTATION_FORM_IDS, true ) ) {
 			if (0 === count($field_data)) {
 				// Put each error in an array due to how Forminator prints errors in a hidden list.
-				$submit_errors[]['fvs-missing-email'] = "Epost-adress saknas.";
+				$submit_errors[]['fvs-missing-email'] = esc_html__('Email address is missing.', 'fvs' );
 				return $submit_errors;
 			}
 			$email = $field_data[0]['value'];

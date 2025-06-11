@@ -7,7 +7,7 @@ $existing_votation_form_ids = FVS_VOTATION_FORM_IDS;
 
 ?>
 
-<h1><?= __('Inställningar', 'my-textdomain'); ?></h1>
+<h1><?= esc_html__('Settings', 'fvs'); ?></h1>
 
 <?php if (current_user_can('manage_options')): ?>
   <?php $fvs_nonce = wp_create_nonce('fvs_nonce'); ?>
@@ -18,7 +18,7 @@ $existing_votation_form_ids = FVS_VOTATION_FORM_IDS;
       id="fvs_form"
     >
       <fieldset>
-        <legend>Formulär för omröstning</legend>
+        <legend><?= esc_html__('Form for votation', 'fvs' ) ?></legend>
         <?php foreach ($fvs_votation_forminator_forms as $form): ?>
           <div>
             <input
@@ -33,7 +33,7 @@ $existing_votation_form_ids = FVS_VOTATION_FORM_IDS;
       </fieldset>
       <br>
       <fieldset>
-        <legend>Tillåt flera inlämningar från samma IP-adress</legend>
+        <legend><?= esc_html__('Allow multiple submissions from the same IP-address', 'fvs' ) ?></legend>
         <select name="fvs_allow_multiple_votes_from_same_ip" id="fvs_allow_multiple_votes_from_same_ip">
         <option value="yes" <?= FVS_ALLOW_MULTIPLE_VOTES_FROM_SAME_IP == 'yes' ? 'selected' : null ?>>Ja</option>
         <option value="no" <?= FVS_ALLOW_MULTIPLE_VOTES_FROM_SAME_IP == 'no' ? 'selected' : null ?>>Nej</option>
@@ -41,7 +41,7 @@ $existing_votation_form_ids = FVS_VOTATION_FORM_IDS;
       </fieldset>
       <br>
       <fieldset>
-        <legend>Blockerade IP-adresser. Ange en kommaseparerad lista med IP-adresser.</legend>
+        <legend><?= esc_html__('Blocked IP-addresses. Enter a comma separated list of IP-addresses.', 'fvs' ) ?></legend>
         <textarea 
           id="blocked_ips" 
           name="blocked_ips" 
@@ -52,10 +52,9 @@ $existing_votation_form_ids = FVS_VOTATION_FORM_IDS;
       <br>
       <input type="hidden" name="action" value="fvs_form_response" />
       <input type="hidden" name="fvs_nonce" value="<?= htmlentities($fvs_nonce) ?>" />
-      <input type="submit" name="submit" id="submit" class="button button-primary" value="Spara" />
+      <input type="submit" name="submit" id="submit" class="button button-primary" value="<?php echo esc_html__('Save', 'fvs' ) ?>" />
     </form>
   </div>
 <?php else: ?>
-  <p>You are not authorized to perform this operation.</p>
+  <p><?= esc_html__('You are not authorized to perform this operation.', 'fvs' ) ?></p>
 <?php endif; ?>
-

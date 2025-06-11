@@ -98,10 +98,15 @@ class Voting_System {
 	}
 
 	protected function load_textdomain() {
-		var_dump(dirname( plugin_basename(__DIR__ ) ) . '/languages');
 		add_action( 'plugins_loaded', function() {
-			load_plugin_textdomain( 'fvs', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );		
-		} );
+			
+			$path = plugin_dir_path( dirname( __FILE__ ) ) . 'languages';
+			$loaded = load_plugin_textdomain( 'fvs', false, plugin_basename( $path ) );
+			Fvs_logger::log( 'Text domain "fvs" loaded: ' . ( $loaded ? 'Yes' : 'No' ) );
+			Fvs_logger::log( 'Path: ' . $path );
+			Fvs_logger::log( 'Locale: ' . get_locale() );
+
+		}, 5 );
 	}
 
 	protected function register_deactivation_hook(): void {

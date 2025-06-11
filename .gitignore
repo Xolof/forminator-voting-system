@@ -9,3 +9,4 @@ vendor/
 *.tar.gz
 *.zip
 TODO.md
+fvs.log
