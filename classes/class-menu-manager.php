@@ -14,8 +14,8 @@ class Menu_Manager {
 
 	public function add_menu_pages(): void {
 		add_menu_page(
-			esc_html__('Forminator Voting System', 'fvs'),
-			esc_html__('Forminator Voting System', 'fvs'),
+			esc_html__( 'Forminator Voting System', 'fvs' ),
+			esc_html__( 'Forminator Voting System', 'fvs' ),
 			'manage_options',
 			'fvs',
 			array( $this, 'render_votation_results' ),
@@ -24,24 +24,24 @@ class Menu_Manager {
 		);
 		add_submenu_page(
 			'fvs',
-			esc_html__('Results', 'fvs'),
-			esc_html__('Results', 'fvs'),
+			esc_html__( 'Results', 'fvs' ),
+			esc_html__( 'Results', 'fvs' ),
 			'manage_options',
 			'render_votation_results',
 			array( $this, 'render_votation_results' )
 		);
 		add_submenu_page(
 			'fvs',
-			esc_html__('Settings', 'fvs'),
-			esc_html__('Settings', 'fvs'),
+			esc_html__( 'Settings', 'fvs' ),
+			esc_html__( 'Settings', 'fvs' ),
 			'manage_options',
 			'render_votation_settings',
 			array( $this, 'render_votation_settings' )
 		);
 		add_submenu_page(
 			'fvs',
-			esc_html__('Manual', 'fvs'),
-			esc_html__('Manual', 'fvs'),
+			esc_html__( 'Manual', 'fvs' ),
+			esc_html__( 'Manual', 'fvs' ),
 			'manage_options',
 			'render_votation_manual',
 			array( $this, 'render_votation_manual' )

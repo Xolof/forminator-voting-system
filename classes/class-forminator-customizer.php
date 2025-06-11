@@ -8,25 +8,25 @@ class Forminator_Customizer {
 
 	protected Results_Fetcher $results_fetcher;
 
-	const IP_BLOCKED_MESSAGE = 'Din IP-adress har blockerats.';
+	const IP_BLOCKED_MESSAGE         = 'Din IP-adress har blockerats.';
 	const ONLY_VOTE_ONE_TIME_MESSAGE = 'Du har redan röstat på det här alternativet med den här epostadressen.';
-	const IP_ALREADY_VOTED_MESSAGE ='Någon har redan röstat på det här alternativet med den här IP-adressen.';
+	const IP_ALREADY_VOTED_MESSAGE   = 'Någon har redan röstat på det här alternativet med den här IP-adressen.';
 
 	public function __construct( Results_Fetcher $results_fetcher ) {
 		$this->results_fetcher = $results_fetcher;
 	}
 
-	public function custom_error_message(array $response, int $form_id): array {
+	public function custom_error_message( array $response, int $form_id ): array {
 		if ( in_array( intval( $form_id ), FVS_VOTATION_FORM_IDS, true ) ) {
-			if (!$response['success'] && isset($response['message'])) {
+			if ( ! $response['success'] && isset( $response['message'] ) ) {
 
-				$response['message'] = '<p>' . esc_html__('Invalid form data:', 'fvs' ) . '</p>';
+				$response['message'] = '<p>' . esc_html__( 'Invalid form data:', 'fvs' ) . '</p>';
 
 				$errors_string = '';
-		
-				foreach($response['errors'] as $error_array) {
-					foreach($error_array as $error) {
-						$sanitized_error = wp_kses_post($error);
+
+				foreach ( $response['errors'] as $error_array ) {
+					foreach ( $error_array as $error ) {
+						$sanitized_error = wp_kses_post( $error );
 
 						$errors_string .= <<<EOD
 							<li class="fvs-forminator-error">
@@ -55,9 +55,9 @@ class Forminator_Customizer {
 
 	public function submit_errors_email( array $submit_errors, int $form_id, array $field_data ): array {
 		if ( in_array( intval( $form_id ), FVS_VOTATION_FORM_IDS, true ) ) {
-			if (0 === count($field_data)) {
+			if ( 0 === count( $field_data ) ) {
 				// Put each error in an array due to how Forminator prints errors in a hidden list.
-				$submit_errors[]['fvs-missing-email'] = esc_html__('Email address is missing.', 'fvs' );
+				$submit_errors[]['fvs-missing-email'] = esc_html__( 'Email address is missing.', 'fvs' );
 				return $submit_errors;
 			}
 			$email = $field_data[0]['value'];
@@ -80,7 +80,7 @@ class Forminator_Customizer {
 
 		if ( $this->ip_already_voted( $form_id ) ) {
 			// Put each error in an array due to how Forminator prints errors in a hidden list.
-			$submit_errors[]['fvs-ip-already-voted']    = self::IP_ALREADY_VOTED_MESSAGE;
+			$submit_errors[]['fvs-ip-already-voted'] = self::IP_ALREADY_VOTED_MESSAGE;
 		}
 		return $submit_errors;
 	}

@@ -9,7 +9,7 @@ class Settings_Processor {
 	protected const SETTINGS_PAGE_URL = 'admin.php?page=render_votation_settings';
 
 	public function process_settings(): void {
-		$invalid_message = esc_html__('Invalid nonce specified.', 'fvs');
+		$invalid_message = esc_html__( 'Invalid nonce specified.', 'fvs' );
 
 		if ( ! isset( $_POST['fvs_nonce'] ) ) {
 			$this->fvs_wp_die( $invalid_message, self::SETTINGS_PAGE_URL );
@@ -23,10 +23,10 @@ class Settings_Processor {
 			$this->process_alternatives() === false ||
 			$this->process_multiple_votes_from_same_ip() === false
 			) {
-				$this->fvs_wp_die( esc_html__('Option update failed.', 'fvs' ), self::SETTINGS_PAGE_URL );
+				$this->fvs_wp_die( esc_html__( 'Option update failed.', 'fvs' ), self::SETTINGS_PAGE_URL );
 			}
 
-			$this->set_flash_message( 'success', esc_html__('Settings saved!', 'fvs' ) );
+			$this->set_flash_message( 'success', esc_html__( 'Settings saved!', 'fvs' ) );
 			$this->redirect();
 		}
 
@@ -35,8 +35,8 @@ class Settings_Processor {
 
 	protected function fvs_wp_die( string $message, string $back_link ): void {
 		wp_die(
-			esc_html($message),
-			esc_html__('Error', 'fvs' ),
+			esc_html( $message ),
+			esc_html__( 'Error', 'fvs' ),
 			array(
 				'response'  => 403,
 				'back_link' => esc_html( $back_link ),
@@ -47,7 +47,7 @@ class Settings_Processor {
 	protected function process_blocked_ips(): mixed {
 		$blocked_ips = $_POST['blocked_ips'] ?? array();
 		if ( gettype( $blocked_ips ) !== 'string' ) {
-			$this->fvs_wp_die( esc_html__('Invalid IP value submitted. Blocked IPs should be a string.', 'fvs' ), self::SETTINGS_PAGE_URL );
+			$this->fvs_wp_die( esc_html__( 'Invalid IP value submitted. Blocked IPs should be a string.', 'fvs' ), self::SETTINGS_PAGE_URL );
 		}
 
 		$blocked_ips = explode( ',', $blocked_ips );
@@ -59,7 +59,7 @@ class Settings_Processor {
 				) {
 					$this->set_flash_message(
 						'error',
-						esc_html__('Invalid value for IP-addresses. Enter blocked IP-addresses separated by comma.', 'fvs' )
+						esc_html__( 'Invalid value for IP-addresses. Enter blocked IP-addresses separated by comma.', 'fvs' )
 					);
 					$this->redirect();
 					exit;
@@ -74,7 +74,7 @@ class Settings_Processor {
 		$votation_forminator_form_ids = isset( $_POST['alternatives'] ) ? array_keys( $_POST['alternatives'] ) : array();
 		foreach ( $votation_forminator_form_ids as $form_id ) {
 			if ( ! is_numeric( $form_id ) ) {
-				$this->fvs_wp_die( esc_html__('Invalid form data.', 'fvs' ), $back_link );
+				$this->fvs_wp_die( esc_html__( 'Invalid form data.', 'fvs' ), $back_link );
 			}
 		}
 
@@ -85,7 +85,7 @@ class Settings_Processor {
 		$fvs_allow_multiple_votes_from_same_ip = $_POST['fvs_allow_multiple_votes_from_same_ip'];
 		if ( isset( $fvs_allow_multiple_votes_from_same_ip ) ) {
 			if ( ! in_array( $fvs_allow_multiple_votes_from_same_ip, array( 'yes', 'no' ) ) ) {
-				$this->fvs_wp_die( esc_html__('Option update failed.', 'fvs' ), self::SETTINGS_PAGE_URL );
+				$this->fvs_wp_die( esc_html__( 'Option update failed.', 'fvs' ), self::SETTINGS_PAGE_URL );
 			}
 			return $this->process_option( 'fvs_allow_multiple_votes_from_same_ip', $fvs_allow_multiple_votes_from_same_ip );
 		}

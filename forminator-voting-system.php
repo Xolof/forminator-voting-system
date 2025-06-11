@@ -24,10 +24,10 @@ require_once __DIR__ . '/classes/class-menu-manager.php';
 require_once __DIR__ . '/classes/class-fvs-logger.php';
 require_once __DIR__ . '/helpers/functions.php';
 
-$results_fetcher = new Results_Fetcher();
+$results_fetcher       = new Results_Fetcher();
 $settings_processor    = new Settings_Processor();
-$menu_manager          = new Menu_Manager($results_fetcher);
-$forminator_customizer = new Forminator_Customizer($results_fetcher);
+$menu_manager          = new Menu_Manager( $results_fetcher );
+$forminator_customizer = new Forminator_Customizer( $results_fetcher );
 
 $voting_system = new Voting_System(
 	$settings_processor,

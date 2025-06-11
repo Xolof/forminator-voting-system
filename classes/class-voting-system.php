@@ -45,8 +45,8 @@ class Voting_System {
 		add_filter( 'forminator_custom_form_submit_errors', array( $this->forminator_customizer, 'submit_errors_email' ), 10, 3 );
 		add_filter( 'forminator_custom_form_submit_errors', array( $this->forminator_customizer, 'submit_errors_ip_already_voted' ), 11, 3 );
 
-		add_filter('forminator_form_submit_response', array( $this->forminator_customizer, 'custom_error_message' ), 20, 2);
-		add_filter('forminator_form_ajax_submit_response', array( $this->forminator_customizer, 'custom_error_message' ), 20, 2);
+		add_filter( 'forminator_form_submit_response', array( $this->forminator_customizer, 'custom_error_message' ), 20, 2 );
+		add_filter( 'forminator_form_ajax_submit_response', array( $this->forminator_customizer, 'custom_error_message' ), 20, 2 );
 	}
 
 	protected function process_settings(): void {
@@ -70,16 +70,19 @@ class Voting_System {
 	}
 
 	protected function set_admin_notices(): void {
-		add_action( 'admin_notices', function() {
-			if ( $flash = get_transient( 'fvs_flash_message' ) ) {
-				printf(
-					'<div class="notice notice-%s is-dismissible"><p>%s</p></div>',
-					esc_attr( $flash['type'] ),
-					esc_html( $flash['message'] )
-				);
-				delete_transient( 'fvs_flash_message' );
+		add_action(
+			'admin_notices',
+			function () {
+				if ( $flash = get_transient( 'fvs_flash_message' ) ) {
+					printf(
+						'<div class="notice notice-%s is-dismissible"><p>%s</p></div>',
+						esc_attr( $flash['type'] ),
+						esc_html( $flash['message'] )
+					);
+					delete_transient( 'fvs_flash_message' );
+				}
 			}
-		} );
+		);
 	}
 
 	protected function add_styles(): void {
@@ -98,32 +101,35 @@ class Voting_System {
 	}
 
 	protected function load_textdomain() {
-		add_action( 'plugins_loaded', function() {
-			
-			$path = plugin_dir_path( dirname( __FILE__ ) ) . 'languages';
-			$loaded = load_plugin_textdomain( 'fvs', false, plugin_basename( $path ) );
-			Fvs_logger::log( 'Text domain "fvs" loaded: ' . ( $loaded ? 'Yes' : 'No' ) );
-			Fvs_logger::log( 'Path: ' . $path );
-			Fvs_logger::log( 'Locale: ' . get_locale() );
+		add_action(
+			'plugins_loaded',
+			function () {
 
-		}, 5 );
+				$path   = plugin_dir_path( __DIR__ ) . 'languages';
+				$loaded = load_plugin_textdomain( 'fvs', false, plugin_basename( $path ) );
+				Fvs_logger::log( 'Text domain "fvs" loaded: ' . ( $loaded ? 'Yes' : 'No' ) );
+				Fvs_logger::log( 'Path: ' . $path );
+				Fvs_logger::log( 'Locale: ' . get_locale() );
+			},
+			5
+		);
 	}
 
 	protected function register_deactivation_hook(): void {
-		$main_plugin_file = plugin_dir_path(__DIR__) . 'forminator-voting-system.php';
+		$main_plugin_file = plugin_dir_path( __DIR__ ) . 'forminator-voting-system.php';
 
 		register_deactivation_hook(
-			plugin_basename($main_plugin_file),
-			function() {
-				$options = [
+			plugin_basename( $main_plugin_file ),
+			function () {
+				$options = array(
 					'fvs_allow_multiple_votes_from_same_ip',
 					'fvs_votation_blocked_ips',
 					'fvs_votation_forminator_form_ids',
 					'fvs_settings',
-					'fvs_db_version'
-				];
+					'fvs_db_version',
+				);
 
-				foreach($options as $option) {
+				foreach ( $options as $option ) {
 					if ( get_option( $option ) ) {
 						delete_option( $option );
 					}
