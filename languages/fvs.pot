@@ -174,3 +174,6 @@ msgstr "Möjliggör blockering av IP-adresser."
 
 msgid "Manual"
 msgstr "Manual"
+
+msgid "No forms have been selected."
+msgstr "Inga formulär har valts."
