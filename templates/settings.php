@@ -1,4 +1,10 @@
 <?php
+/**
+ * Settings page
+ *
+ * @package Forminator Voting System
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -24,7 +30,7 @@ $existing_votation_form_ids = FVS_VOTATION_FORM_IDS;
 			<input
 				type="checkbox"
 				id="<?php echo esc_html( $form->id ); ?>"
-				name="alternatives[<?php echo esc_html( $form->id ); ?>]"
+				name="form_ids[<?php echo esc_html( $form->id ); ?>]"
 				<?php echo in_array( $form->id, $existing_votation_form_ids, true ) ? 'checked' : null; ?>
 			/>
 			<label for="<?php echo esc_html( $form->id ); ?>"><?php echo esc_html( $form->settings['formName'] ); ?></label>

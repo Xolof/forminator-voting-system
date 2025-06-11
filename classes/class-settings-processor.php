@@ -1,9 +1,19 @@
 <?php
+/**
+ * Settings_Processor
+ *
+ * Processes settings for the votation.
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Settings_Processor
+ *
+ * Processes settings for the votation.
+ */
 class Settings_Processor {
 
 	protected const SETTINGS_PAGE_URL = 'admin.php?page=render_votation_settings';
@@ -20,7 +30,7 @@ class Settings_Processor {
 		if ( wp_verify_nonce( $nonce, 'fvs_nonce' ) ) {
 			if (
 			$this->process_blocked_ips() === false ||
-			$this->process_alternatives() === false ||
+			$this->process_form_ids() === false ||
 			$this->process_multiple_votes_from_same_ip() === false
 			) {
 				$this->fvs_wp_die( esc_html__( 'Option update failed.', 'fvs' ), self::SETTINGS_PAGE_URL );
@@ -45,10 +55,10 @@ class Settings_Processor {
 	}
 
 	protected function process_blocked_ips(): mixed {
-		$blocked_ips = sanitize_text_field( wp_unslash( $_POST['blocked_ips'] ) );
-
-		if ( ! isset( $blocked_ips ) ) {
+		if ( ! isset( $_POST['blocked_ips'] ) ) {
 			$blocked_ips = array();
+		} else {
+			$blocked_ips = sanitize_text_field( wp_unslash( $_POST['blocked_ips'] ) );
 		}
 
 		if ( gettype( $blocked_ips ) !== 'string' ) {
@@ -75,9 +85,12 @@ class Settings_Processor {
 		return $this->process_option( 'fvs_votation_blocked_ips', $blocked_ips );
 	}
 
-	protected function process_alternatives(): mixed {
-		$votation_forminator_form_ids = sanitize_text_field( wp_unslash( $_POST['alternatives'] ) );
-		$votation_forminator_form_ids = isset( $votation_forminator_form_ids ) ? array_keys( $_POST['alternatives'] ) : array();
+	protected function process_form_ids(): mixed {
+		if ( isset( $_POST['form_ids'] ) ) {
+			$votation_forminator_form_ids = array_keys( $_POST['form_ids'] );
+		} else {
+			$votation_forminator_form_ids = array();
+		}
 
 		foreach ( $votation_forminator_form_ids as $form_id ) {
 			if ( ! is_numeric( $form_id ) ) {
@@ -89,9 +102,10 @@ class Settings_Processor {
 	}
 
 	protected function process_multiple_votes_from_same_ip(): mixed {
-		$fvs_allow_multiple_votes_from_same_ip = $_POST['fvs_allow_multiple_votes_from_same_ip'];
-		if ( isset( $fvs_allow_multiple_votes_from_same_ip ) ) {
-			if ( ! in_array( $fvs_allow_multiple_votes_from_same_ip, array( 'yes', 'no' ) ) ) {
+		if ( isset( $_POST['fvs_allow_multiple_votes_from_same_ip'] ) ) {
+			$fvs_allow_multiple_votes_from_same_ip = sanitize_text_field( wp_unslash( $_POST['fvs_allow_multiple_votes_from_same_ip'] ) );
+
+			if ( ! in_array( $fvs_allow_multiple_votes_from_same_ip, array( 'yes', 'no' ), true ) ) {
 				$this->fvs_wp_die( esc_html__( 'Option update failed.', 'fvs' ), self::SETTINGS_PAGE_URL );
 			}
 			return $this->process_option( 'fvs_allow_multiple_votes_from_same_ip', $fvs_allow_multiple_votes_from_same_ip );

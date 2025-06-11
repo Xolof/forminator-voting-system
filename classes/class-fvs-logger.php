@@ -1,12 +1,22 @@
 <?php
+/**
+ * Custom logger
+ *
+ * @package Forminator Voting System
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * FVS Custom Logger
+ */
 class Fvs_Logger {
-
 	public static function log( string $message ): void {
-		file_put_contents( __DIR__ . '/../fvs.log', wp_json_encode( $message ) . "\n", FILE_APPEND );
+		$path             = plugin_dir_path( __DIR__ );
+		$message          = wp_json_encode( $message ) . "\n";
+		$destination_file = $path . 'fvs.log';
+		error_log( $message, 3, $destination_file );
 	}
 }

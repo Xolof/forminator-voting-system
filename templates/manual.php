@@ -1,4 +1,10 @@
 <?php
+/**
+ * Manual page
+ *
+ * @package Forminator Voting System
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

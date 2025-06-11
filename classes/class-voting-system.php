@@ -108,9 +108,6 @@ class Voting_System {
 
 				$path   = plugin_dir_path( __DIR__ ) . 'languages';
 				$loaded = load_plugin_textdomain( 'fvs', false, plugin_basename( $path ) );
-				Fvs_logger::log( 'Text domain "fvs" loaded: ' . ( $loaded ? 'Yes' : 'No' ) );
-				Fvs_logger::log( 'Path: ' . $path );
-				Fvs_logger::log( 'Locale: ' . get_locale() );
 			},
 			5
 		);

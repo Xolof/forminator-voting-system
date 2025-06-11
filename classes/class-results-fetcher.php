@@ -1,12 +1,29 @@
 <?php
+/**
+ * Class Results_Fetcher
+ *
+ * Fetches votation results from the database.
+ *
+ * @package Forminator Voting System
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Results_Fetcher
+ *
+ * Fetches votation results from the database.
+ */
 class Results_Fetcher {
 
-	public function get_votation_results() {
+	/**
+	 * Get the results of the votation.
+	 *
+	 * @return array
+	 */
+	public function get_votation_results(): array {
 		global $wpdb;
 		$postmeta             = $this->get_table_name_with_prefix( 'postmeta' );
 		$frmt_form_entry      = $this->get_table_name_with_prefix( 'frmt_form_entry' );
@@ -27,25 +44,31 @@ class Results_Fetcher {
 		GROUP BY form_id
 		;
 	EOD;
-		$results                       = $wpdb->get_results(
-			$wpdb->prepare(
-				$votation_result_query,
-				array_merge(
-					array(
-						$postmeta,
-						$frmt_form_entry,
-						$frmt_form_entry_meta,
-						$postmeta,
-					),
-					FVS_VOTATION_FORM_IDS,
-					array( $frmt_form_entry_meta )
-				)
+
+		$statement = $wpdb->prepare(
+			$votation_result_query,
+			array_merge(
+				array(
+					$postmeta,
+					$frmt_form_entry,
+					$frmt_form_entry_meta,
+					$postmeta,
+				),
+				FVS_VOTATION_FORM_IDS,
+				array( $frmt_form_entry_meta )
 			)
 		);
+
+		$results = $wpdb->get_results( $statement ); // phpcs:ignore
 		return $results;
 	}
 
-	public function get_votes_per_ip_results() {
+	/**
+	 * Get number of votes per IP address
+	 *
+	 * @return array
+	 */
+	public function get_votes_per_ip_results(): array {
 		global $wpdb;
 		$postmeta             = $this->get_table_name_with_prefix( 'postmeta' );
 		$frmt_form_entry      = $this->get_table_name_with_prefix( 'frmt_form_entry' );
@@ -64,23 +87,27 @@ class Results_Fetcher {
 			AND %i.meta_key="_forminator_user_ip"
 		GROUP BY IP_address;
 		EOD;
-		return $wpdb->get_results(
-			$wpdb->prepare(
-				$votes_per_ip_query,
-				array_merge(
-					array(
-						$frmt_form_entry_meta,
-						$frmt_form_entry,
-						$frmt_form_entry_meta,
-					),
-					FVS_VOTATION_FORM_IDS,
-					array( $frmt_form_entry_meta )
-				)
+		$statement                     = $wpdb->prepare(
+			$votes_per_ip_query,
+			array_merge(
+				array(
+					$frmt_form_entry_meta,
+					$frmt_form_entry,
+					$frmt_form_entry_meta,
+				),
+				FVS_VOTATION_FORM_IDS,
+				array( $frmt_form_entry_meta )
 			)
 		);
+		return $wpdb->get_results($statement); // phpcs:ignore
 	}
 
-	protected function get_votation_form_id_placeholders() {
+	/**
+	 * Make placeholders for each votation form to be used in an SQL-query.
+	 *
+	 * @return string
+	 */
+	protected function get_votation_form_id_placeholders(): string {
 		$votation_form_id_placeholders = '';
 		foreach ( FVS_VOTATION_FORM_IDS as $id ) {
 			$votation_form_id_placeholders .= '%d,';
@@ -88,12 +115,20 @@ class Results_Fetcher {
 		return rtrim( $votation_form_id_placeholders, ',' );
 	}
 
-	public function get_table_name_with_prefix( $tablename_without_prefix ) {
+	/**
+	 * Get the tablename prepended with the database prefix. This is
+	 * needed because WordPress prefixes tables so that it is possible
+	 * to have multiple instances of WordPress in the same database.
+	 *
+	 * @param string $tablename_without_prefix
+	 * @return string
+	 */
+	public function get_table_name_with_prefix( string $tablename_without_prefix ): string {
 		global $wpdb;
 		$prefix             = $wpdb->prefix;
 		$prefixed_tablename = $prefix . $tablename_without_prefix;
 
-		$table_exists = $wpdb->get_results(
+		$table_exists = $wpdb->get_results( // phpcs:ignore
 			$wpdb->prepare(
 				'SHOW TABLES LIKE %s',
 				$prefixed_tablename

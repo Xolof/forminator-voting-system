@@ -1,4 +1,10 @@
 <?php
+/**
+ * Results page
+ *
+ * @package Forminator Voting System
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -6,7 +12,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 $votation_results_db     = $votation_results_db ?? array();
 $votes_per_ip_results_db = $votes_per_ip_results_db ?? array();
 
-function cmp( $a, $b ) {
+/**
+ * Sort results by number of votes.
+ *
+ * @param stdClass $a An item in the array.
+ * @param stdClass $b An item in the array.
+ *
+ * @return int
+ */
+function cmp( stdClass $a, stdClass $b ): int {
 	if ( $a === $b ) {
 		return 0;
 	}
