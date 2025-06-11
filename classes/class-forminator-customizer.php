@@ -1,9 +1,18 @@
 <?php
+/**
+ * Forminator_Customizer
+ * @package Forminator Voting System
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Forminator_Customizer
+ *
+ * Handles customization of Forminator form behaviour.
+ */
 class Forminator_Customizer {
 
 	protected Results_Fetcher $results_fetcher;

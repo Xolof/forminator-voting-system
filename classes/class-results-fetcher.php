@@ -21,6 +21,10 @@ class Results_Fetcher {
 	/**
 	 * Get the results of the votation.
 	 *
+	 * Disable WordPress phpcs rule about placeholders.
+	 * We are using placeholders which we generate dynamically.
+	 * phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
+	 *
 	 * @return array
 	 */
 	public function get_votation_results(): array {
@@ -41,8 +45,7 @@ class Results_Fetcher {
 		WHERE
 			form_id IN ($votation_form_id_placeholders)
 			AND %i.meta_key="email-1"
-		GROUP BY form_id
-		;
+		GROUP BY form_id;
 	EOD;
 
 		$statement = $wpdb->prepare(
@@ -103,7 +106,7 @@ class Results_Fetcher {
 	}
 
 	/**
-	 * Make placeholders for each votation form to be used in an SQL-query.
+	 * Generate placeholders for each votation form to be used in an SQL-query.
 	 *
 	 * @return string
 	 */
@@ -120,8 +123,10 @@ class Results_Fetcher {
 	 * needed because WordPress prefixes tables so that it is possible
 	 * to have multiple instances of WordPress in the same database.
 	 *
-	 * @param string $tablename_without_prefix
+	 * @param string $tablename_without_prefix The tablename without prefix.
 	 * @return string
+	 *
+	 * @throws Exception Throws Exception if the table does not exist.
 	 */
 	public function get_table_name_with_prefix( string $tablename_without_prefix ): string {
 		global $wpdb;

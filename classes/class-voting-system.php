@@ -1,11 +1,16 @@
 <?php
+/**
+ * Main class.
+ *
+ * @package Forminator Voting System
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * ForminatorVotingSystem
+ * Voting_System
  *
  * The main class for the plugin.
  */
@@ -15,6 +20,13 @@ class Voting_System {
 	protected Menu_Manager $menu_manager;
 	protected Forminator_Customizer $forminator_customizer;
 
+	/**
+	 * Constructor
+	 *
+	 * @param Settings_Processor    $settings_processor
+	 * @param Menu_Manager          $menu_manager
+	 * @param Forminator_Customizer $forminator_customizer
+	 */
 	public function __construct(
 		Settings_Processor $settings_processor,
 		Menu_Manager $menu_manager,
@@ -25,12 +37,16 @@ class Voting_System {
 		$this->forminator_customizer = $forminator_customizer;
 	}
 
+	/**
+	 * Start up the plugin.
+	 *
+	 * @return void
+	 */
 	public function init(): void {
 		define( 'FVS_ALLOW_MULTIPLE_VOTES_FROM_SAME_IP', json_decode( get_option( 'fvs_allow_multiple_votes_from_same_ip' ) ) ?? 'yes' );
 		define( 'FVS_IP_BLOCK_LIST', json_decode( get_option( 'fvs_votation_blocked_ips' ) ) ?? array() );
 		define( 'FVS_VOTATION_FORM_IDS', json_decode( get_option( 'fvs_votation_forminator_form_ids' ) ) ?? array() );
 
-		$this->initiate_session();
 		$this->add_menu_pages();
 		$this->process_settings();
 		$this->set_admin_notices();
@@ -40,6 +56,11 @@ class Voting_System {
 		$this->register_deactivation_hook();
 	}
 
+	/**
+	 * Customize Forminator behavior.
+	 *
+	 * @return void
+	 */
 	protected function set_forminator_hooks(): void {
 		add_filter( 'forminator_custom_form_submit_errors', array( $this->forminator_customizer, 'submit_errors_ip_blocked' ), 9, 3 );
 		add_filter( 'forminator_custom_form_submit_errors', array( $this->forminator_customizer, 'submit_errors_email' ), 10, 3 );
@@ -49,26 +70,29 @@ class Voting_System {
 		add_filter( 'forminator_form_ajax_submit_response', array( $this->forminator_customizer, 'custom_error_message' ), 20, 2 );
 	}
 
+	/**
+	 * Process the settings from the admin page.
+	 *
+	 * @return void
+	 */
 	protected function process_settings(): void {
 		add_action( 'admin_post_fvs_form_response', array( $this->settings_processor, 'process_settings' ) );
 	}
 
+	/**
+	 * Add menu pages in admin interface.
+	 *
+	 * @return void
+	 */
 	protected function add_menu_pages(): void {
 		add_action( 'admin_menu', array( $this->menu_manager, 'add_menu_pages' ) );
 	}
 
-	protected function initiate_session(): void {
-		add_action(
-			'init',
-			function () {
-				if ( session_status() === PHP_SESSION_NONE ) {
-					session_start();
-				}
-				session_write_close();
-			}
-		);
-	}
-
+	/**
+	 * Define a custom flash message.
+	 *
+	 * @return void
+	 */
 	protected function set_admin_notices(): void {
 		add_action(
 			'admin_notices',
@@ -86,6 +110,11 @@ class Voting_System {
 		);
 	}
 
+	/**
+	 * Add custom stylesheet.
+	 *
+	 * @return void
+	 */
 	protected function add_styles(): void {
 		add_action(
 			'admin_enqueue_scripts',
@@ -101,11 +130,15 @@ class Voting_System {
 		);
 	}
 
+	/**
+	 * Load the plugin's textdomain which is needed for translations.
+	 *
+	 * @return void
+	 */
 	protected function load_textdomain() {
 		add_action(
 			'plugins_loaded',
 			function () {
-
 				$path   = plugin_dir_path( __DIR__ ) . 'languages';
 				$loaded = load_plugin_textdomain( 'fvs', false, plugin_basename( $path ) );
 			},
@@ -113,6 +146,11 @@ class Voting_System {
 		);
 	}
 
+	/**
+	 * Register actions to execute on deactivation of the plugin.
+	 *
+	 * @return void
+	 */
 	protected function register_deactivation_hook(): void {
 		$main_plugin_file = plugin_dir_path( __DIR__ ) . 'forminator-voting-system.php';
 
