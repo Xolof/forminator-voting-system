@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<h1>Manual</h1>
+<h1><?= esc_html__('Manual', 'fvs') ?></h1>
 <h3><?= esc_html__('Functionality', 'fvs') ?></h3>
 <ul>
   <li><?= esc_html__('Compiles results from the votation and shows them in the admin interface.', 'fvs') ?></li>

@@ -171,3 +171,6 @@ msgstr "Skapa formulär i Forminator. Formulären ska ha ett fält för Email."
 
 msgid "Allows blocking IP addresses."
 msgstr "Möjliggör blockering av IP-adresser."
+
+msgid "Manual"
+msgstr "Manual"
