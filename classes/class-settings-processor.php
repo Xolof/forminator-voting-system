@@ -45,7 +45,12 @@ class Settings_Processor {
 	}
 
 	protected function process_blocked_ips(): mixed {
-		$blocked_ips = $_POST['blocked_ips'] ?? array();
+		$blocked_ips = sanitize_text_field( wp_unslash( $_POST['blocked_ips'] ) );
+
+		if ( ! isset( $blocked_ips ) ) {
+			$blocked_ips = array();
+		}
+
 		if ( gettype( $blocked_ips ) !== 'string' ) {
 			$this->fvs_wp_die( esc_html__( 'Invalid IP value submitted. Blocked IPs should be a string.', 'fvs' ), self::SETTINGS_PAGE_URL );
 		}
@@ -71,7 +76,9 @@ class Settings_Processor {
 	}
 
 	protected function process_alternatives(): mixed {
-		$votation_forminator_form_ids = isset( $_POST['alternatives'] ) ? array_keys( $_POST['alternatives'] ) : array();
+		$votation_forminator_form_ids = sanitize_text_field( wp_unslash( $_POST['alternatives'] ) );
+		$votation_forminator_form_ids = isset( $votation_forminator_form_ids ) ? array_keys( $_POST['alternatives'] ) : array();
+
 		foreach ( $votation_forminator_form_ids as $form_id ) {
 			if ( ! is_numeric( $form_id ) ) {
 				$this->fvs_wp_die( esc_html__( 'Invalid form data.', 'fvs' ), $back_link );

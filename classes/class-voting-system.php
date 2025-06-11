@@ -73,7 +73,8 @@ class Voting_System {
 		add_action(
 			'admin_notices',
 			function () {
-				if ( $flash = get_transient( 'fvs_flash_message' ) ) {
+				$flash = get_transient( 'fvs_flash_message' );
+				if ( $flash ) {
 					printf(
 						'<div class="notice notice-%s is-dismissible"><p>%s</p></div>',
 						esc_attr( $flash['type'] ),

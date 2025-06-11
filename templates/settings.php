@@ -23,11 +23,11 @@ $existing_votation_form_ids = FVS_VOTATION_FORM_IDS;
 			<div>
 			<input
 				type="checkbox"
-				id="<?php echo htmlentities( $form->id ); ?>"
-				name="alternatives[<?php echo htmlentities( $form->id ); ?>]"
-				<?php echo in_array( $form->id, $existing_votation_form_ids ) ? 'checked' : null; ?>
+				id="<?php echo esc_html( $form->id ); ?>"
+				name="alternatives[<?php echo esc_html( $form->id ); ?>]"
+				<?php echo in_array( $form->id, $existing_votation_form_ids, true ) ? 'checked' : null; ?>
 			/>
-			<label for="<?php echo htmlentities( $form->id ); ?>"><?php echo htmlentities( $form->settings['formName'] ); ?></label>
+			<label for="<?php echo esc_html( $form->id ); ?>"><?php echo esc_html( $form->settings['formName'] ); ?></label>
 			</div>
 		<?php endforeach; ?>
 		</fieldset>
@@ -35,8 +35,8 @@ $existing_votation_form_ids = FVS_VOTATION_FORM_IDS;
 		<fieldset>
 		<legend><?php echo esc_html__( 'Allow multiple submissions from the same IP-address', 'fvs' ); ?></legend>
 		<select name="fvs_allow_multiple_votes_from_same_ip" id="fvs_allow_multiple_votes_from_same_ip">
-		<option value="yes" <?php echo FVS_ALLOW_MULTIPLE_VOTES_FROM_SAME_IP == 'yes' ? 'selected' : null; ?>>Ja</option>
-		<option value="no" <?php echo FVS_ALLOW_MULTIPLE_VOTES_FROM_SAME_IP == 'no' ? 'selected' : null; ?>>Nej</option>
+		<option value="yes" <?php echo FVS_ALLOW_MULTIPLE_VOTES_FROM_SAME_IP === 'yes' ? 'selected' : null; ?>>Ja</option>
+		<option value="no" <?php echo FVS_ALLOW_MULTIPLE_VOTES_FROM_SAME_IP === 'no' ? 'selected' : null; ?>>Nej</option>
 		</select> 
 		</fieldset>
 		<br>
@@ -47,11 +47,11 @@ $existing_votation_form_ids = FVS_VOTATION_FORM_IDS;
 			name="blocked_ips" 
 			rows="5" 
 			cols="35"
-		><?php echo htmlentities( implode( ',', FVS_IP_BLOCK_LIST ) ); ?></textarea>
+		><?php echo esc_html( implode( ',', FVS_IP_BLOCK_LIST ) ); ?></textarea>
 		</fieldset>
 		<br>
 		<input type="hidden" name="action" value="fvs_form_response" />
-		<input type="hidden" name="fvs_nonce" value="<?php echo htmlentities( $fvs_nonce ); ?>" />
+		<input type="hidden" name="fvs_nonce" value="<?php echo esc_html( $fvs_nonce ); ?>" />
 		<input type="submit" name="submit" id="submit" class="button button-primary" value="<?php echo esc_html__( 'Save', 'fvs' ); ?>" />
 	</form>
 	</div>

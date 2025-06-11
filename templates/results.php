@@ -7,7 +7,7 @@ $votation_results_db     = $votation_results_db ?? array();
 $votes_per_ip_results_db = $votes_per_ip_results_db ?? array();
 
 function cmp( $a, $b ) {
-	if ( $a == $b ) {
+	if ( $a === $b ) {
 		return 0;
 	}
 	return ( $a->num_votes > $b->num_votes ) ? -1 : 1;
@@ -26,12 +26,12 @@ foreach ( $votation_results_db as $row ) {
 
 <?php if ( ! count( FVS_VOTATION_FORM_IDS ) ) : ?>
 	<p>
-	<?php echo esc_html__( 'No forms have been selected.&nbsp', 'fvs' ); ?>
-	<a href="<?php echo get_admin_url(); ?>admin.php?page=render_votation_settings"><?php echo esc_html__( 'Select forms in settings.', 'fvs' ); ?></a>
+	<?php echo esc_html__( 'No forms have been selected', 'fvs' ); ?>
+	<a href="<?php echo esc_html( get_admin_url() ); ?>admin.php?page=render_votation_settings"><?php echo esc_html__( 'Select forms in settings.', 'fvs' ); ?></a>
 	</p>
 <?php endif; ?>
 
-<h2><?php echo esc_html__( 'Total number of votes:', 'fvs' ); ?> <?php echo $total_num_votes; ?></h2>
+<h2><?php echo esc_html__( 'Total number of votes:', 'fvs' ); ?> <?php echo esc_html( $total_num_votes ); ?></h2>
 
 <?php if ( ! count( $votation_results_db ) ) : ?>
 	<p><?php echo esc_html__( 'There are not yet any votes.', 'fvs' ); ?></p>
@@ -57,16 +57,16 @@ foreach ( $votation_results_db as $row ) {
 		?>
 	<tr>
 		<td>
-		<?php echo $index; ?>
+		<?php echo esc_html( $index ); ?>
 		</td>
 		<td>
-		<?php echo htmlentities( $alternative ); ?>
+		<?php echo esc_html( $alternative ); ?>
 		</td>
 		<td>    
-		<?php echo htmlentities( $result->num_votes ); ?>
+		<?php echo esc_html( $result->num_votes ); ?>
 		</td>  
 		<td>
-		<?php echo htmlentities( $result->form_id ); ?>
+		<?php echo esc_html( $result->form_id ); ?>
 		</td>
 	</tr>
 		<?php ++$index; ?>
@@ -86,10 +86,10 @@ foreach ( $votation_results_db as $row ) {
 	<?php foreach ( array_slice( $votes_per_ip_results_db, 0, 20 ) as $result ) : ?>
 	<tr>
 		<td>
-		<?php echo htmlentities( $result->IP_address ); ?>
+		<?php echo esc_html( $result->IP_address ); ?>
 		</td>
 		<td>
-		<?php echo htmlentities( $result->num_votes ); ?>
+		<?php echo esc_html( $result->num_votes ); ?>
 		</td>
 	</tr>
 	<?php endforeach; ?>

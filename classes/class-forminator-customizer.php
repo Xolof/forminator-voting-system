@@ -45,7 +45,7 @@ class Forminator_Customizer {
 	public function submit_errors_ip_blocked( array $submit_errors, int $form_id ): array {
 		if ( in_array( intval( $form_id ), FVS_VOTATION_FORM_IDS, true ) ) {
 			$user_ip = Forminator_Geo::get_user_ip();
-			if ( in_array( $user_ip, FVS_IP_BLOCK_LIST ) ) {
+			if ( in_array( $user_ip, FVS_IP_BLOCK_LIST, true ) ) {
 				// Put each error in an array due to how Forminator prints errors in a hidden list.
 				$submit_errors[]['fvs-ip-blocked'] = self::IP_BLOCKED_MESSAGE;
 			}
