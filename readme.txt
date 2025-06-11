@@ -2,55 +2,40 @@
 Tags: comments, spam
 Requires at least: 4.5
 Tested up to: 6.8.1
-Requires PHP: 7.4
+Requires PHP: 8.0.0
 Stable tag: 0.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: fvs
 
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
+A voting system using Forminator forms.
 
 == Description ==
 
-Long description.
+Compiles results from voting and shows them in WP admin interface.
+Receives only one vote per option per email address.
+Lets you allow only one vote per option per IP address.
+Enables blocking of IP addresses.
 
 == Installation ==
 
-1. Upload `plugin-name.php` to the `/wp-content/plugins/` directory
+1. Upload the directory `forminator_voting_system` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Create Forminator forms (No AJAX).
+3. Create Forminator forms. The forms should have an email field.
+4. Configure votation rules on the plugin's settings page in Wordpress admin.
 
 == Changelog ==
 
-= 1.0 =
-* A change since the previous version.
-* Another change.
+= 0.1.0 =
+* First version.
 
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
+== Useful commands ==
 
+### Make a new pot file for translations:
+`wp i18n make-pot . languages/my-plugin.pot`
 
-== A brief Markdown Example ==
+### Compile translations
+`./compile_translations.sh`
 
-Ordered list:
-
-1. Some feature
-1. Another feature
-1. Something else about the plugin
-
-Unordered list:
-
-* something
-* something else
-* third thing
-
-Here's a link to [WordPress](https://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax].
-Titles are optional, naturally.
-
-[markdown syntax]: https://daringfireball.net/projects/markdown/syntax
-            "Markdown is what the parser uses to process much of the readme file"
-
-Markdown uses email style notation for blockquotes and I've been told:
-> Asterisks for *emphasis*. Double it up  for **strong**.
-
-`<?php code(); // goes in backticks ?>`
+### Check code with Phpcs
+`vendor/bin/phpcs -ps classes/ --standard=WordPress`
