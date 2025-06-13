@@ -43,5 +43,8 @@ Enables blocking of IP addresses.
 ### Install tests
 `bin/install-wp-tests.sh`
 
+### Setup test Forminator tables
+`mysql <your-wordpress-database> < tests/test_tables.sql`
+
 ### Run tests
 `vendor/bin/phpunit --verbose --coverage-html coverage`
