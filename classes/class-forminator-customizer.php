@@ -27,15 +27,17 @@ class Forminator_Customizer {
 	/**
 	 * Constructor
 	 *
-	 * @param Results_Fetcher $results_fetcher
+	 * @param Results_Fetcher                     $results_fetcher
+	 * @param Forminator_Geo_Wrapper              $forminator_geo
+	 * @param Forminator_Form_Entry_Model_Wrapper $forminator_form_entry_model
 	 */
-	public function __construct( 
+	public function __construct(
 		Results_Fetcher $results_fetcher,
 		Forminator_Geo_Wrapper $forminator_geo,
 		Forminator_Form_Entry_Model_Wrapper $forminator_form_entry_model
-	 ) {
-		$this->results_fetcher = $results_fetcher;
-		$this->forminator_geo = $forminator_geo;
+	) {
+		$this->results_fetcher             = $results_fetcher;
+		$this->forminator_geo              = $forminator_geo;
 		$this->forminator_form_entry_model = $forminator_form_entry_model;
 	}
 
@@ -121,7 +123,7 @@ class Forminator_Customizer {
 	 * @param integer $form_id
 	 * @return array submit_errors
 	 */
-	public function submit_errors_ip_already_voted( array $submit_errors, int $form_id ): array {		
+	public function submit_errors_ip_already_voted( array $submit_errors, int $form_id ): array {
 		if ( $this->multiple_votes_from_same_ip_is_allowed() === 'yes' ) {
 			return $submit_errors;
 		}
@@ -206,7 +208,7 @@ class Forminator_Customizer {
 	 * @return array
 	 */
 	protected function get_blocked_ips(): array {
-		return json_decode( get_option( 'fvs_votation_blocked_ips' )) ?? [];
+		return json_decode( get_option( 'fvs_votation_blocked_ips' ) ) ?? array();
 	}
 
 	/**
@@ -215,6 +217,6 @@ class Forminator_Customizer {
 	 * @return array
 	 */
 	protected function multiple_votes_from_same_ip_is_allowed(): string {
-		return json_decode( get_option( 'fvs_allow_multiple_votes_from_same_ip' )) ?? [];
+		return json_decode( get_option( 'fvs_allow_multiple_votes_from_same_ip' ) ) ?? array();
 	}
 }

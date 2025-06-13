@@ -6,15 +6,14 @@
  * @package Forminator_voting_system
  */
 
-require_once __DIR__ . '/../classes/wrappers/forminator-form-entry-model-wrapper.php';
-require_once __DIR__ . '/../classes/wrappers/forminator-geo-wrapper.php';
+require_once __DIR__ . '/../classes/wrappers/class-forminator-form-entry-model-wrapper.php';
+require_once __DIR__ . '/../classes/wrappers/class-forminator-geo-wrapper.php';
 
 /**
  * Forminator_Customizer test.
  */
 class ForminatorCustomizerTest extends WP_UnitTestCase
 {
-
     public function setUp(): void
     {
         parent::setUp();

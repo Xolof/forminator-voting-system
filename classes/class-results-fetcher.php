@@ -35,7 +35,7 @@ class Results_Fetcher {
 
 		$votation_form_id_placeholders = $this->get_votation_form_id_placeholders();
 		$this->get_forminator_form_ids();
-		$votation_result_query         = <<<EOD
+		$votation_result_query = <<<EOD
 		SELECT
 			form_id, COUNT(*) as num_votes, %i.meta_value as alternative
 			FROM %i
