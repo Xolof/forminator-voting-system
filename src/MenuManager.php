@@ -4,6 +4,7 @@
  *
  * @package Forminator Voting System
  */
+
 namespace ForminatorVotingSystem;
 
 if ( ! defined( 'ABSPATH' ) ) {
