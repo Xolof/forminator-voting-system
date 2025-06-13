@@ -1,0 +1,10 @@
+parameters:
+    level: 8
+    paths:
+        - src
+        - tests
+        - templates
+        - debug
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - '#^(?!.*(MissingReturnType|MissingParamType)).*#' # Ignore all errors except missing type declarations

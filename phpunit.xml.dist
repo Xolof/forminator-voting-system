@@ -16,7 +16,7 @@
 	</testsuites>
     <coverage>
         <include>
-            <directory>classes</directory>
+            <directory>src</directory>
         </include>
     </coverage>
 </phpunit>
