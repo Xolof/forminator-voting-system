@@ -77,7 +77,7 @@ class ForminatorCustomizerTest extends WP_UnitTestCase
 
         $results_fetcher       = new Results_Fetcher();
         $forminator_customizer = new Forminator_Customizer($results_fetcher, $forminator_geo, $forminator_form_entry_model);
-        $res = $forminator_customizer->submit_errors_email([], 7, [['value' => 'mumin@troll.se']]);
+        $res = $forminator_customizer->submit_errors_email([], 7, [['value' => 'kjell@ullared.se']]);
 
         $this->assertEquals($res[0]['fvs-email-already-voted'], 'You have already voted for this alternative with this email address.');
     }
