@@ -39,3 +39,9 @@ Enables blocking of IP addresses.
 
 ### Check code with Phpcs
 `vendor/bin/phpcs -ps classes/ --standard=WordPress`
+
+### Install tests
+`bin/install-wp-tests.sh`
+
+### Run tests
+`vendor/bin/phpunit --verbose --coverage-html coverage`
