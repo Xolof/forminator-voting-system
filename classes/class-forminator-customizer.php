@@ -17,6 +17,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Forminator_Customizer {
 
 	protected Results_Fetcher $results_fetcher;
+	protected Forminator_Geo_Wrapper $forminator_geo;
+	protected Forminator_Form_Entry_Model_Wrapper $forminator_form_entry_model;
 
 	const IP_BLOCKED_MESSAGE         = 'Your IP address has been blocked.';
 	const ONLY_VOTE_ONE_TIME_MESSAGE = 'You have already voted for this alternative with this email address.';
@@ -27,8 +29,14 @@ class Forminator_Customizer {
 	 *
 	 * @param Results_Fetcher $results_fetcher
 	 */
-	public function __construct( Results_Fetcher $results_fetcher ) {
+	public function __construct( 
+		Results_Fetcher $results_fetcher,
+		Forminator_Geo_Wrapper $forminator_geo,
+		Forminator_Form_Entry_Model_Wrapper $forminator_form_entry_model
+	 ) {
 		$this->results_fetcher = $results_fetcher;
+		$this->forminator_geo = $forminator_geo;
+		$this->forminator_form_entry_model = $forminator_form_entry_model;
 	}
 
 	/**
@@ -39,7 +47,7 @@ class Forminator_Customizer {
 	 * @return array
 	 */
 	public function custom_error_message( array $response, int $form_id ): array {
-		if ( ! in_array( intval( $form_id ), FVS_VOTATION_FORM_IDS, true ) ) {
+		if ( ! in_array( intval( $form_id ), $this->get_forminator_form_ids(), true ) ) {
 			return $response;
 		}
 		if ( ! $response['success'] && isset( $response['message'] ) ) {
@@ -72,9 +80,9 @@ class Forminator_Customizer {
 	 * @return array $submit_errors
 	 */
 	public function submit_errors_ip_blocked( array $submit_errors, int $form_id ): array {
-		if ( in_array( intval( $form_id ), FVS_VOTATION_FORM_IDS, true ) ) {
-			$user_ip = Forminator_Geo::get_user_ip();
-			if ( in_array( $user_ip, FVS_IP_BLOCK_LIST, true ) ) {
+		if ( in_array( intval( $form_id ), $this->get_forminator_form_ids(), true ) ) {
+			$user_ip = $this->forminator_geo->get_user_ip();
+			if ( in_array( $user_ip, $this->get_blocked_ips(), true ) ) {
 				// Put each error in an array due to how Forminator prints errors in a hidden list.
 				$submit_errors[]['fvs-ip-blocked'] = esc_html__( self::IP_BLOCKED_MESSAGE, 'fvs' ); // phpcs:ignore
 			}
@@ -91,7 +99,7 @@ class Forminator_Customizer {
 	 * @return array $submit_errors
 	 */
 	public function submit_errors_email( array $submit_errors, int $form_id, array $field_data ): array {
-		if ( in_array( intval( $form_id ), FVS_VOTATION_FORM_IDS, true ) ) {
+		if ( in_array( intval( $form_id ), $this->get_forminator_form_ids(), true ) ) {
 			if ( 0 === count( $field_data ) ) {
 				// Put each error in an array due to how Forminator prints errors in a hidden list.
 				$submit_errors[]['fvs-missing-email'] = esc_html__( 'Email address is missing.', 'fvs' );
@@ -107,18 +115,18 @@ class Forminator_Customizer {
 	}
 
 	/**
-	 * Check if the IP address has alreadyh voted.
+	 * Check if the IP address has already voted.
 	 *
 	 * @param array   $submit_errors
 	 * @param integer $form_id
 	 * @return array submit_errors
 	 */
-	public function submit_errors_ip_already_voted( array $submit_errors, int $form_id ): array {
-		if ( FVS_ALLOW_MULTIPLE_VOTES_FROM_SAME_IP === 'yes' ) {
+	public function submit_errors_ip_already_voted( array $submit_errors, int $form_id ): array {		
+		if ( $this->multiple_votes_from_same_ip_is_allowed() === 'yes' ) {
 			return $submit_errors;
 		}
 
-		if ( ! in_array( intval( $form_id ), FVS_VOTATION_FORM_IDS, true ) ) {
+		if ( ! in_array( intval( $form_id ), $this->get_forminator_form_ids(), true ) ) {
 			return $submit_errors;
 		}
 
@@ -173,13 +181,40 @@ class Forminator_Customizer {
 	 * @return boolean
 	 */
 	protected function ip_already_voted( int $form_id ): bool {
-		$user_ip = Forminator_Geo::get_user_ip();
+		$user_ip = $this->forminator_geo->get_user_ip();
 		if ( ! empty( $user_ip ) ) {
-			$last_entry = Forminator_Form_Entry_Model::get_last_entry_by_ip_and_form( $form_id, $user_ip );
+			$last_entry = $this->forminator_form_entry_model->get_last_entry_by_ip_and_form( $form_id, $user_ip );
 			if ( ! empty( $last_entry ) ) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Get the ids of the forms used in the votation.
+	 *
+	 * @return array
+	 */
+	protected function get_forminator_form_ids(): array {
+		return json_decode( get_option( 'fvs_votation_forminator_form_ids' ) );
+	}
+
+	/**
+	 * Get blocked IP addresses.
+	 *
+	 * @return array
+	 */
+	protected function get_blocked_ips(): array {
+		return json_decode( get_option( 'fvs_votation_blocked_ips' )) ?? [];
+	}
+
+	/**
+	 * Check is several votes from the same IP address are allowed.
+	 *
+	 * @return array
+	 */
+	protected function multiple_votes_from_same_ip_is_allowed(): string {
+		return json_decode( get_option( 'fvs_allow_multiple_votes_from_same_ip' )) ?? [];
 	}
 }

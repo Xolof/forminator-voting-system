@@ -34,6 +34,7 @@ class Results_Fetcher {
 		$frmt_form_entry_meta = $this->get_table_name_with_prefix( 'frmt_form_entry_meta' );
 
 		$votation_form_id_placeholders = $this->get_votation_form_id_placeholders();
+		$this->get_forminator_form_ids();
 		$votation_result_query         = <<<EOD
 		SELECT
 			form_id, COUNT(*) as num_votes, %i.meta_value as alternative
@@ -57,7 +58,7 @@ class Results_Fetcher {
 					$frmt_form_entry_meta,
 					$postmeta,
 				),
-				FVS_VOTATION_FORM_IDS,
+				$this->get_forminator_form_ids(),
 				array( $frmt_form_entry_meta )
 			)
 		);
@@ -98,7 +99,7 @@ class Results_Fetcher {
 					$frmt_form_entry,
 					$frmt_form_entry_meta,
 				),
-				FVS_VOTATION_FORM_IDS,
+				$this->get_forminator_form_ids(),
 				array( $frmt_form_entry_meta )
 			)
 		);
@@ -112,7 +113,7 @@ class Results_Fetcher {
 	 */
 	protected function get_votation_form_id_placeholders(): string {
 		$votation_form_id_placeholders = '';
-		foreach ( FVS_VOTATION_FORM_IDS as $id ) {
+		foreach ( $this->get_forminator_form_ids() as $id ) {
 			$votation_form_id_placeholders .= '%d,';
 		}
 		return rtrim( $votation_form_id_placeholders, ',' );
@@ -145,5 +146,14 @@ class Results_Fetcher {
 		}
 
 		throw new Exception( esc_html( "Table $prefixed_tablename not found." ) );
+	}
+
+	/**
+	 * Get the ids of the forms used in the votation.
+	 *
+	 * @return array
+	 */
+	protected function get_forminator_form_ids(): array {
+		return json_decode( get_option( 'fvs_votation_forminator_form_ids' ) );
 	}
 }
