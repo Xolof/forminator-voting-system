@@ -1,7 +1,9 @@
 {
   "require-dev": {
     "wp-cli/i18n-command": "^2",
-    "wp-coding-standards/wpcs": "^3.0"
+    "wp-coding-standards/wpcs": "^3.0",
+    "phpunit/phpunit": "^9.6",
+    "yoast/phpunit-polyfills": "^4.0"
   },
   "scripts": {
     "makepot": "wp i18n make-pot ."
