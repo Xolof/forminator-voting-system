@@ -1,9 +1,10 @@
 <?php
 /**
- * Menu_Manager
+ * MenuManager
  *
  * @package Forminator Voting System
  */
+namespace ForminatorVotingSystem;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -12,16 +13,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Menu Manager
  */
-class Menu_Manager {
+class MenuManager {
 
-	protected Results_Fetcher $results_fetcher;
+	protected ResultsFetcher $results_fetcher;
 
 	/**
 	 * Constructor
 	 *
-	 * @param Results_Fetcher $results_fetcher
+	 * @param ResultsFetcher $results_fetcher
 	 */
-	public function __construct( Results_Fetcher $results_fetcher ) {
+	public function __construct( ResultsFetcher $results_fetcher ) {
 		$this->results_fetcher = $results_fetcher;
 	}
 
@@ -97,7 +98,7 @@ class Menu_Manager {
 	 * @return void
 	 */
 	public function render_votation_settings() {
-		$fvs_votation_forminator_forms = Forminator_API::get_forms();
+		$fvs_votation_forminator_forms = \Forminator_API::get_forms();
 		require_once __DIR__ . '/../templates/settings.php';
 	}
 }

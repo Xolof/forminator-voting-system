@@ -1,24 +1,29 @@
 <?php
 /**
- * Forminator_Customizer
+ * ForminatorCustomizer
  *
  * @package Forminator Voting System
  */
+
+namespace ForminatorVotingSystem;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use ForminatorVotingSystem\Wrapper\ForminatorFormEntryModelWrapper;
+use ForminatorVotingSystem\Wrapper\ForminatorGeoWrapper;
+
 /**
- * Forminator_Customizer
+ * ForminatorCustomizer
  *
  * Handles customization of Forminator form behaviour.
  */
-class Forminator_Customizer {
+class ForminatorCustomizer {
 
-	protected Results_Fetcher $results_fetcher;
-	protected Forminator_Geo_Wrapper $forminator_geo;
-	protected Forminator_Form_Entry_Model_Wrapper $forminator_form_entry_model;
+	protected ResultsFetcher $results_fetcher;
+	protected ForminatorGeoWrapper $forminator_geo;
+	protected ForminatorFormEntryModelWrapper $forminator_form_entry_model;
 
 	const IP_BLOCKED_MESSAGE         = 'Your IP address has been blocked.';
 	const ONLY_VOTE_ONE_TIME_MESSAGE = 'You have already voted for this alternative with this email address.';
@@ -27,14 +32,14 @@ class Forminator_Customizer {
 	/**
 	 * Constructor
 	 *
-	 * @param Results_Fetcher                     $results_fetcher
-	 * @param Forminator_Geo_Wrapper              $forminator_geo
-	 * @param Forminator_Form_Entry_Model_Wrapper $forminator_form_entry_model
+	 * @param ResultsFetcher                  $results_fetcher
+	 * @param ForminatorGeoWrapper            $forminator_geo
+	 * @param ForminatorFormEntryModelWrapper $forminator_form_entry_model
 	 */
 	public function __construct(
-		Results_Fetcher $results_fetcher,
-		Forminator_Geo_Wrapper $forminator_geo,
-		Forminator_Form_Entry_Model_Wrapper $forminator_form_entry_model
+		ResultsFetcher $results_fetcher,
+		ForminatorGeoWrapper $forminator_geo,
+		ForminatorFormEntryModelWrapper $forminator_form_entry_model
 	) {
 		$this->results_fetcher             = $results_fetcher;
 		$this->forminator_geo              = $forminator_geo;

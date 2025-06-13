@@ -16,25 +16,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once __DIR__ . '/src/class-voting-system.php';
-require_once __DIR__ . '/src/class-forminator-customizer.php';
-require_once __DIR__ . '/src/class-settings-processor.php';
-require_once __DIR__ . '/src/class-results-fetcher.php';
-require_once __DIR__ . '/src/class-menu-manager.php';
-require_once __DIR__ . '/src/class-fvs-logger.php';
-require_once __DIR__ . '/src/wrappers/class-forminator-form-entry-model-wrapper.php';
-require_once __DIR__ . '/src/wrappers/class-forminator-geo-wrapper.php';
+require_once __DIR__ . '/autoload.php';
+
+use ForminatorVotingSystem\VotingSystem;
+use ForminatorVotingSystem\ForminatorCustomizer;
+use ForminatorVotingSystem\SettingsProcessor;
+use ForminatorVotingSystem\ResultsFetcher;
+use ForminatorVotingSystem\MenuManager;
+use ForminatorVotingSystem\FvsLogger;
+use ForminatorVotingSystem\Wrapper\ForminatorFormEntryModelWrapper;
+use ForminatorVotingSystem\Wrapper\ForminatorGeoWrapper;
+
 require_once __DIR__ . '/debug/functions.php';
 
-$forminator_geo_wrapper              = new Forminator_Geo_Wrapper();
-$forminator_form_entry_model_wrapper = new Forminator_Form_Entry_Model_Wrapper();
+$forminator_geo_wrapper              = new ForminatorGeoWrapper();
+$forminator_form_entry_model_wrapper = new ForminatorFormEntryModelWrapper();
 
-$results_fetcher       = new Results_Fetcher();
-$settings_processor    = new Settings_Processor();
-$menu_manager          = new Menu_Manager( $results_fetcher );
-$forminator_customizer = new Forminator_Customizer( $results_fetcher, $forminator_geo_wrapper, $forminator_form_entry_model_wrapper );
+$results_fetcher       = new ResultsFetcher();
+$settings_processor    = new SettingsProcessor();
+$menu_manager          = new MenuManager( $results_fetcher );
+$forminator_customizer = new ForminatorCustomizer( $results_fetcher, $forminator_geo_wrapper, $forminator_form_entry_model_wrapper );
 
-$voting_system = new Voting_System(
+$voting_system = new VotingSystem(
 	$settings_processor,
 	$menu_manager,
 	$forminator_customizer

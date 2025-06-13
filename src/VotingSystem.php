@@ -5,32 +5,34 @@
  * @package Forminator Voting System
  */
 
+namespace ForminatorVotingSystem;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * Voting_System
+ * VotingSystem
  *
  * The main class for the plugin.
  */
-class Voting_System {
+class VotingSystem {
 
-	protected Settings_Processor $settings_processor;
-	protected Menu_Manager $menu_manager;
-	protected Forminator_Customizer $forminator_customizer;
+	protected SettingsProcessor $settings_processor;
+	protected MenuManager $menu_manager;
+	protected ForminatorCustomizer $forminator_customizer;
 
 	/**
 	 * Constructor
 	 *
-	 * @param Settings_Processor    $settings_processor
-	 * @param Menu_Manager          $menu_manager
-	 * @param Forminator_Customizer $forminator_customizer
+	 * @param SettingsProcessor    $settings_processor
+	 * @param MenuManager          $menu_manager
+	 * @param ForminatorCustomizer $forminator_customizer
 	 */
 	public function __construct(
-		Settings_Processor $settings_processor,
-		Menu_Manager $menu_manager,
-		Forminator_Customizer $forminator_customizer
+		SettingsProcessor $settings_processor,
+		MenuManager $menu_manager,
+		ForminatorCustomizer $forminator_customizer
 	) {
 		$this->settings_processor    = $settings_processor;
 		$this->menu_manager          = $menu_manager;

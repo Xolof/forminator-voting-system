@@ -1,22 +1,24 @@
 <?php
 /**
- * Settings_Processor
+ * SettingsProcessor
  *
  * Processes settings for the votation.
  *
  * @package Forminator Votation System
  */
 
+namespace ForminatorVotingSystem;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * Settings_Processor
+ * SettingsProcessor
  *
  * Processes settings for the votation.
  */
-class Settings_Processor {
+class SettingsProcessor {
 
 	protected const SETTINGS_PAGE_URL = 'admin.php?page=render_votation_settings';
 

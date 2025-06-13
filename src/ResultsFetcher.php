@@ -1,22 +1,23 @@
 <?php
 /**
- * Class Results_Fetcher
+ * Class ResultsFetcher
  *
  * Fetches votation results from the database.
  *
  * @package Forminator Voting System
  */
+namespace ForminatorVotingSystem;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * Results_Fetcher
+ * ResultsFetcher
  *
  * Fetches votation results from the database.
  */
-class Results_Fetcher {
+class ResultsFetcher {
 
 	/**
 	 * Get the results of the votation.

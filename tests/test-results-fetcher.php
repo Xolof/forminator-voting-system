@@ -5,6 +5,8 @@
  * @package Forminator_voting_system
  */
 
+use ForminatorVotingSystem\ResultsFetcher;
+
 /**
  * Results Fetcher test.
  */
@@ -23,7 +25,7 @@ class ResultsFetcherTest extends WP_UnitTestCase {
 	}
 
 	public function test_fetching_results(): void {
-		$resultsFetcher = new Results_Fetcher();
+		$resultsFetcher = new ResultsFetcher();
 		$results = $resultsFetcher->get_votation_results();
 
 		$this->assertEquals(3, count($results));

@@ -6,8 +6,13 @@
  * @package Forminator_voting_system
  */
 
-require_once __DIR__ . '/../src/wrappers/class-forminator-form-entry-model-wrapper.php';
-require_once __DIR__ . '/../src/wrappers/class-forminator-geo-wrapper.php';
+use ForminatorVotingSystem\ForminatorCustomizer;
+use ForminatorVotingSystem\ResultsFetcher; 
+use ForminatorVotingSystem\Wrapper\ForminatorFormEntryModelWrapper;
+use ForminatorVotingSystem\Wrapper\ForminatorGeoWrapper;
+
+// require_once __DIR__ . '/../src/wrappers/class-forminator-form-entry-model-wrapper.php';
+// require_once __DIR__ . '/../src/wrappers/class-forminator-geo-wrapper.php';
 
 /**
  * Forminator_Customizer test.
@@ -34,16 +39,16 @@ class ForminatorCustomizerTest extends WP_UnitTestCase
         $option_value = 'no';
         $this->add_option($option_id, $option_value);
 
-        $forminator_geo = $this->createMock(Forminator_Geo_Wrapper::class);
+        $forminator_geo = $this->createMock(ForminatorGeoWrapper::class);
         $forminator_geo->method('get_user_ip')
              ->willReturn('127.0.0.1');
 
-        $forminator_form_entry_model = $this->createMock(Forminator_Form_Entry_Model_Wrapper::class);
+        $forminator_form_entry_model = $this->createMock(ForminatorFormEntryModelWrapper::class);
         $forminator_form_entry_model->method('get_last_entry_by_ip_and_form')
              ->willReturn(42);
 
-        $results_fetcher       = new Results_Fetcher();
-        $forminator_customizer = new Forminator_Customizer($results_fetcher, $forminator_geo, $forminator_form_entry_model);
+        $results_fetcher       = new ResultsFetcher();
+        $forminator_customizer = new ForminatorCustomizer($results_fetcher, $forminator_geo, $forminator_form_entry_model);
         $res = $forminator_customizer->submit_errors_ip_already_voted([], 7, [['value' => 'person@test.se']]);
 
         $this->assertEquals($res[0]['fvs-ip-already-voted'], 'Someone has already voted for this alternative with this IP address.');
@@ -55,16 +60,16 @@ class ForminatorCustomizerTest extends WP_UnitTestCase
         $option_value = 'yes';
         $this->add_option($option_id, $option_value);
 
-        $forminator_geo = $this->createMock(Forminator_Geo_Wrapper::class);
+        $forminator_geo = $this->createMock(ForminatorGeoWrapper::class);
         $forminator_geo->method('get_user_ip')
              ->willReturn('127.0.0.1');
 
-        $forminator_form_entry_model = $this->createMock(Forminator_Form_Entry_Model_Wrapper::class);
+        $forminator_form_entry_model = $this->createMock(ForminatorFormEntryModelWrapper::class);
         $forminator_form_entry_model->method('get_last_entry_by_ip_and_form')
              ->willReturn(42);
 
-        $results_fetcher       = new Results_Fetcher();
-        $forminator_customizer = new Forminator_Customizer($results_fetcher, $forminator_geo, $forminator_form_entry_model);
+        $results_fetcher       = new ResultsFetcher();
+        $forminator_customizer = new ForminatorCustomizer($results_fetcher, $forminator_geo, $forminator_form_entry_model);
         $res = $forminator_customizer->submit_errors_ip_already_voted([], 7, [['value' => 'person@test.se']]);
 
         $this->assertEquals($res, []);
@@ -72,11 +77,11 @@ class ForminatorCustomizerTest extends WP_UnitTestCase
 
     public function test_email_already_voted(): void
     {
-        $forminator_geo = new Forminator_Geo_Wrapper();
-        $forminator_form_entry_model = new Forminator_Form_Entry_Model_Wrapper();
+        $forminator_geo = new ForminatorGeoWrapper();
+        $forminator_form_entry_model = new ForminatorFormEntryModelWrapper();
 
-        $results_fetcher       = new Results_Fetcher();
-        $forminator_customizer = new Forminator_Customizer($results_fetcher, $forminator_geo, $forminator_form_entry_model);
+        $results_fetcher       = new ResultsFetcher();
+        $forminator_customizer = new ForminatorCustomizer($results_fetcher, $forminator_geo, $forminator_form_entry_model);
         $res = $forminator_customizer->submit_errors_email([], 7, [['value' => 'kjell@ullared.se']]);
 
         $this->assertEquals($res[0]['fvs-email-already-voted'], 'You have already voted for this alternative with this email address.');
@@ -84,11 +89,11 @@ class ForminatorCustomizerTest extends WP_UnitTestCase
 
     public function test_email_is_missing(): void
     {
-        $forminator_geo = new Forminator_Geo_Wrapper();
-        $forminator_form_entry_model = new Forminator_Form_Entry_Model_Wrapper();
+        $forminator_geo = new ForminatorGeoWrapper();
+        $forminator_form_entry_model = new ForminatorFormEntryModelWrapper();
 
-        $results_fetcher       = new Results_Fetcher();
-        $forminator_customizer = new Forminator_Customizer($results_fetcher, $forminator_geo, $forminator_form_entry_model);
+        $results_fetcher       = new ResultsFetcher();
+        $forminator_customizer = new ForminatorCustomizer($results_fetcher, $forminator_geo, $forminator_form_entry_model);
         $res = $forminator_customizer->submit_errors_email([], 7, []);
 
         $this->assertEquals($res[0]['fvs-missing-email'], 'Email address is missing.');
@@ -96,15 +101,15 @@ class ForminatorCustomizerTest extends WP_UnitTestCase
 
     public function test_submit_errors_ip_blocked(): void
     {
-        $forminator_geo = new Forminator_Geo_Wrapper();
-        $forminator_form_entry_model = new Forminator_Form_Entry_Model_Wrapper();
+        $forminator_geo = new ForminatorGeoWrapper();
+        $forminator_form_entry_model = new ForminatorFormEntryModelWrapper();
 
         $option_id = 'fvs_votation_blocked_ips';
         $option_value = [$forminator_geo->get_user_ip()];
         $this->add_option($option_id, $option_value);
 
-        $results_fetcher       = new Results_Fetcher();
-        $forminator_customizer = new Forminator_Customizer($results_fetcher, $forminator_geo, $forminator_form_entry_model);
+        $results_fetcher       = new ResultsFetcher();
+        $forminator_customizer = new ForminatorCustomizer($results_fetcher, $forminator_geo, $forminator_form_entry_model);
         $res = $forminator_customizer->submit_errors_ip_blocked([], 6);
 
         $this->assertEquals($res[0]['fvs-ip-blocked'], 'Your IP address has been blocked.');
@@ -124,11 +129,11 @@ class ForminatorCustomizerTest extends WP_UnitTestCase
             ]
         ];
 
-        $forminator_geo = new Forminator_Geo_Wrapper();
-        $forminator_form_entry_model = new Forminator_Form_Entry_Model_Wrapper();
+        $forminator_geo = new ForminatorGeoWrapper();
+        $forminator_form_entry_model = new ForminatorFormEntryModelWrapper();
 
-        $results_fetcher       = new Results_Fetcher();
-        $forminator_customizer = new Forminator_Customizer($results_fetcher, $forminator_geo, $forminator_form_entry_model);
+        $results_fetcher       = new ResultsFetcher();
+        $forminator_customizer = new ForminatorCustomizer($results_fetcher, $forminator_geo, $forminator_form_entry_model);
 
         $res = $forminator_customizer->custom_error_message($responseArg, 6);
 

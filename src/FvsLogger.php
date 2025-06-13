@@ -4,6 +4,7 @@
  *
  * @package Forminator Voting System
  */
+namespace ForminatorVotingSystem;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -12,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * FVS Custom Logger
  */
-class Fvs_Logger {
+class FvsLogger {
 	/**
 	 * Write message to a log file.
 	 *
