@@ -9,8 +9,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$fvs_existing_votation_form_ids = FVS_VOTATION_FORM_IDS;
-
 ?>
 
 <h1><?php echo esc_html__( 'Settings', 'fvs' ); ?></h1>
@@ -41,8 +39,8 @@ $fvs_existing_votation_form_ids = FVS_VOTATION_FORM_IDS;
 		<fieldset>
 		<legend><?php echo esc_html__( 'Allow multiple submissions from the same IP-address', 'fvs' ); ?></legend>
 		<select name="fvs_allow_multiple_votes_from_same_ip" id="fvs_allow_multiple_votes_from_same_ip">
-		<option value="yes" <?php echo FVS_ALLOW_MULTIPLE_VOTES_FROM_SAME_IP === 'yes' ? 'selected' : null; ?>>Ja</option>
-		<option value="no" <?php echo FVS_ALLOW_MULTIPLE_VOTES_FROM_SAME_IP === 'no' ? 'selected' : null; ?>>Nej</option>
+		<option value="yes" <?php echo 'yes' === $fvs_allow_multiple_votes_from_same_ip ? 'selected' : null; ?>>Ja</option>
+		<option value="no" <?php echo 'no' === $fvs_allow_multiple_votes_from_same_ip ? 'selected' : null; ?>>Nej</option>
 		</select> 
 		</fieldset>
 		<br>
@@ -53,7 +51,7 @@ $fvs_existing_votation_form_ids = FVS_VOTATION_FORM_IDS;
 			name="blocked_ips" 
 			rows="5" 
 			cols="35"
-		><?php echo esc_html( implode( ',', FVS_IP_BLOCK_LIST ) ); ?></textarea>
+		><?php echo esc_html( implode( ',', $fvs_ip_block_list ) ); ?></textarea>
 		</fieldset>
 		<br>
 		<input type="hidden" name="action" value="fvs_form_response" />

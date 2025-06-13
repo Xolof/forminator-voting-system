@@ -45,10 +45,6 @@ class VotingSystem {
 	 * @return void
 	 */
 	public function init(): void {
-		define( 'FVS_ALLOW_MULTIPLE_VOTES_FROM_SAME_IP', json_decode( get_option( 'fvs_allow_multiple_votes_from_same_ip' ) ) ?? 'yes' );
-		define( 'FVS_IP_BLOCK_LIST', json_decode( get_option( 'fvs_votation_blocked_ips' ) ) ?? array() );
-		define( 'FVS_VOTATION_FORM_IDS', json_decode( get_option( 'fvs_votation_forminator_form_ids' ) ) ?? array() );
-
 		$this->add_menu_pages();
 		$this->process_settings();
 		$this->set_admin_notices();

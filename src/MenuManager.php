@@ -99,7 +99,13 @@ class MenuManager {
 	 * @return void
 	 */
 	public function render_votation_settings() {
+
 		$fvs_votation_forminator_forms = \Forminator_API::get_forms();
+
+		$fvs_allow_multiple_votes_from_same_ip = json_decode( get_option( 'fvs_allow_multiple_votes_from_same_ip' ) ) ?? 'yes';
+		$fvs_ip_block_list                     = json_decode( get_option( 'fvs_votation_blocked_ips' ) ) ?? array();
+		$fvs_existing_votation_form_ids        = json_decode( get_option( 'fvs_votation_forminator_form_ids' ) ) ?? array();
+
 		require_once __DIR__ . '/../templates/settings.php';
 	}
 }
