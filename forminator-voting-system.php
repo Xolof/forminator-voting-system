@@ -16,14 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once __DIR__ . '/classes/class-voting-system.php';
-require_once __DIR__ . '/classes/class-forminator-customizer.php';
-require_once __DIR__ . '/classes/class-settings-processor.php';
-require_once __DIR__ . '/classes/class-results-fetcher.php';
-require_once __DIR__ . '/classes/class-menu-manager.php';
-require_once __DIR__ . '/classes/class-fvs-logger.php';
-require_once __DIR__ . '/classes/wrappers/class-forminator-form-entry-model-wrapper.php';
-require_once __DIR__ . '/classes/wrappers/class-forminator-geo-wrapper.php';
+require_once __DIR__ . '/src/class-voting-system.php';
+require_once __DIR__ . '/src/class-forminator-customizer.php';
+require_once __DIR__ . '/src/class-settings-processor.php';
+require_once __DIR__ . '/src/class-results-fetcher.php';
+require_once __DIR__ . '/src/class-menu-manager.php';
+require_once __DIR__ . '/src/class-fvs-logger.php';
+require_once __DIR__ . '/src/wrappers/class-forminator-form-entry-model-wrapper.php';
+require_once __DIR__ . '/src/wrappers/class-forminator-geo-wrapper.php';
 require_once __DIR__ . '/debug/functions.php';
 
 $forminator_geo_wrapper              = new Forminator_Geo_Wrapper();

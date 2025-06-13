@@ -132,7 +132,7 @@ class Settings_Processor {
 	 *
 	 * @return mixed
 	 */
-	protected function process_multiple_votes_from_same_ip(): mixed {
+	protected function process_multiple_votes_from_same_ip(): string {
 		if ( isset( $_POST['fvs_allow_multiple_votes_from_same_ip'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$fvs_allow_multiple_votes_from_same_ip = sanitize_text_field( wp_unslash( $_POST['fvs_allow_multiple_votes_from_same_ip'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
@@ -141,6 +141,7 @@ class Settings_Processor {
 			}
 			return $this->process_option( 'fvs_allow_multiple_votes_from_same_ip', $fvs_allow_multiple_votes_from_same_ip );
 		}
+		return '';
 	}
 
 	/**
