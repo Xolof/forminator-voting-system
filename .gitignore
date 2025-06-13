@@ -10,3 +10,5 @@ vendor/
 *.zip
 TODO.md
 fvs.log
+.phpunit.result.cache
+coverage/
