@@ -37,8 +37,8 @@ Enables blocking of IP addresses.
 ### Compile translations
 `./compile_translations.sh`
 
-### Check code with Phpcs
-`vendor/bin/phpcs -ps classes/ --standard=WordPress`
+### Lint
+`./lint.sh`
 
 ### Install tests
 `bin/install-wp-tests.sh`
