@@ -60,4 +60,9 @@
         <exclude name="Squiz.Commenting.VariableComment.Missing"/>
 	</rule>
 
+    <rule ref="WordPress.Files.FileName">
+        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+	</rule>
+
 </ruleset>
