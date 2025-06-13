@@ -73,8 +73,8 @@ class ForminatorCustomizerTest extends WP_UnitTestCase
 
     public function test_email_already_voted(): void
     {
-        $forminator_geo = new Forminator_Geo();
-        $forminator_form_entry_model = new Forminator_Form_Entry_Model();
+        $forminator_geo = new Forminator_Geo_Wrapper();
+        $forminator_form_entry_model = new Forminator_Form_Entry_Model_Wrapper();
 
         $results_fetcher       = new Results_Fetcher();
         $forminator_customizer = new Forminator_Customizer($results_fetcher, $forminator_geo, $forminator_form_entry_model);
@@ -85,8 +85,8 @@ class ForminatorCustomizerTest extends WP_UnitTestCase
 
     public function test_email_is_missing(): void
     {
-        $forminator_geo = new Forminator_Geo();
-        $forminator_form_entry_model = new Forminator_Form_Entry_Model();
+        $forminator_geo = new Forminator_Geo_Wrapper();
+        $forminator_form_entry_model = new Forminator_Form_Entry_Model_Wrapper();
 
         $results_fetcher       = new Results_Fetcher();
         $forminator_customizer = new Forminator_Customizer($results_fetcher, $forminator_geo, $forminator_form_entry_model);
@@ -97,8 +97,8 @@ class ForminatorCustomizerTest extends WP_UnitTestCase
 
     public function test_submit_errors_ip_blocked(): void
     {
-        $forminator_geo = new Forminator_Geo();
-        $forminator_form_entry_model = new Forminator_Form_Entry_Model();
+        $forminator_geo = new Forminator_Geo_Wrapper();
+        $forminator_form_entry_model = new Forminator_Form_Entry_Model_Wrapper();
 
         $option_id = 'fvs_votation_blocked_ips';
         $option_value = [$forminator_geo->get_user_ip()];
@@ -125,8 +125,8 @@ class ForminatorCustomizerTest extends WP_UnitTestCase
             ]
         ];
 
-        $forminator_geo = new Forminator_Geo();
-        $forminator_form_entry_model = new Forminator_Form_Entry_Model();
+        $forminator_geo = new Forminator_Geo_Wrapper();
+        $forminator_form_entry_model = new Forminator_Form_Entry_Model_Wrapper();
 
         $results_fetcher       = new Results_Fetcher();
         $forminator_customizer = new Forminator_Customizer($results_fetcher, $forminator_geo, $forminator_form_entry_model);
