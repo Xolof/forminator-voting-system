@@ -11,9 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once __DIR__ . '/../../../forminator/library/model/class-form-entry-model.php';
-require_once __DIR__ . '/../../../forminator/library/class-database-tables.php';
-
 /**
  * A wrapper class for Forminator_Form_Entry_Model,
  * making it possible to mock the static method get_last_entry_by_ip_and_form().

@@ -11,9 +11,6 @@ use ForminatorVotingSystem\ResultsFetcher;
 use ForminatorVotingSystem\Wrapper\ForminatorFormEntryModelWrapper;
 use ForminatorVotingSystem\Wrapper\ForminatorGeoWrapper;
 
-// require_once __DIR__ . '/../src/wrappers/class-forminator-form-entry-model-wrapper.php';
-// require_once __DIR__ . '/../src/wrappers/class-forminator-geo-wrapper.php';
-
 /**
  * Forminator_Customizer test.
  */

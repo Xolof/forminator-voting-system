@@ -11,7 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
 require_once __DIR__ . '/../../../forminator/library/class-geo.php';
 
 /**

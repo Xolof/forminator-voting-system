@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once __DIR__ . '/autoload.php';
+require_once __DIR__ . '/debug/functions.php';
 
 use ForminatorVotingSystem\VotingSystem;
 use ForminatorVotingSystem\ForminatorCustomizer;
@@ -26,8 +27,6 @@ use ForminatorVotingSystem\MenuManager;
 use ForminatorVotingSystem\FvsLogger;
 use ForminatorVotingSystem\Wrapper\ForminatorFormEntryModelWrapper;
 use ForminatorVotingSystem\Wrapper\ForminatorGeoWrapper;
-
-require_once __DIR__ . '/debug/functions.php';
 
 $forminator_geo_wrapper              = new ForminatorGeoWrapper();
 $forminator_form_entry_model_wrapper = new ForminatorFormEntryModelWrapper();
