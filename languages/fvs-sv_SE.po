@@ -125,8 +125,8 @@ msgid "Results"
 msgstr "Resultat"
 
 #: templates/votation_settings.php:21
-msgid "Form for votation"
-msgstr "Formulär för omröstning"
+msgid "Forms for votation:"
+msgstr "Formulär för omröstning:"
 
 #: templates/votation_settings.php:36
 msgid "Allow multiple submissions from the same IP-address"
@@ -200,3 +200,9 @@ msgid ""
 msgstr ""
 "Forminator omröstningssystem behöver pluginet Forminator för att kunna "
 "fungera."
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nej"
