@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <h1><?php echo esc_html__( 'Settings', 'fvs' ); ?></h1>
 
-<?php if ( current_user_can( 'manage_options' ) ) : ?>
+<?php if ( current_user_can( 'read' ) ) : ?>
 	<?php $fvs_nonce = wp_create_nonce( 'fvs_nonce' ); ?>
 	<div class="fvs_form">
 	<form 
