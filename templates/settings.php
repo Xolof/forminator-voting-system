@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		id="fvs_form"
 	>
 		<fieldset>
-		<legend><?php echo esc_html__( 'Form for votation', 'fvs' ); ?></legend>
+		<legend><?php echo esc_html__( 'Forms for votation:', 'fvs' ); ?></legend>
 		<?php foreach ( $fvs_votation_forminator_forms as $fvs_form ) : ?>
 			<div>
 			<input
@@ -39,8 +39,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<fieldset>
 		<legend><?php echo esc_html__( 'Allow multiple submissions from the same IP-address', 'fvs' ); ?></legend>
 		<select name="fvs_allow_multiple_votes_from_same_ip" id="fvs_allow_multiple_votes_from_same_ip">
-		<option value="yes" <?php echo 'yes' === $fvs_allow_multiple_votes_from_same_ip ? 'selected' : null; ?>>Ja</option>
-		<option value="no" <?php echo 'no' === $fvs_allow_multiple_votes_from_same_ip ? 'selected' : null; ?>>Nej</option>
+		<option value="yes" <?php echo 'yes' === $fvs_allow_multiple_votes_from_same_ip ? 'selected' : null; ?>><?php echo esc_html__( 'Yes' ); ?></option>
+		<option value="no" <?php echo 'no' === $fvs_allow_multiple_votes_from_same_ip ? 'selected' : null; ?>><?php echo esc_html__( 'No' ); ?></option>
 		</select> 
 		</fieldset>
 		<br>
