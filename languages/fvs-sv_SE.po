@@ -200,3 +200,9 @@ msgid ""
 msgstr ""
 "Forminator omröstningssystem behöver pluginet Forminator för att kunna "
 "fungera."
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nej"

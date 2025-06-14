@@ -189,3 +189,9 @@ msgstr "Någon har redan röstat på det här alternativet med den här IP-adres
 
 msgid "Forminator Voting System requires the Forminator plugin in order to work."
 msgstr "Forminator omröstningssystem behöver pluginet Forminator för att kunna fungera."
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nej"
