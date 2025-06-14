@@ -75,10 +75,13 @@ class MenuManager {
 	 * @return void
 	 */
 	public function render_votation_results() {
-		if ( ! FVS_VOTATION_FORM_IDS ) {
+		$fvs_votation_form_ids = $this->get_votation_form_ids();
+
+		if ( ! $fvs_votation_form_ids ) {
 			require_once __DIR__ . '/../templates/results.php';
 			return;
 		}
+
 		$fvs_votation_results_db     = $this->results_fetcher->get_votation_results();
 		$fvs_votes_per_ip_results_db = $this->results_fetcher->get_votes_per_ip_results();
 		require_once __DIR__ . '/../templates/results.php';
@@ -104,8 +107,17 @@ class MenuManager {
 
 		$fvs_allow_multiple_votes_from_same_ip = json_decode( get_option( 'fvs_allow_multiple_votes_from_same_ip' ) ) ?? 'yes';
 		$fvs_ip_block_list                     = json_decode( get_option( 'fvs_votation_blocked_ips' ) ) ?? array();
-		$fvs_existing_votation_form_ids        = json_decode( get_option( 'fvs_votation_forminator_form_ids' ) ) ?? array();
+		$fvs_existing_votation_form_ids        = $this->get_votation_form_ids() ?? array();
 
 		require_once __DIR__ . '/../templates/settings.php';
+	}
+
+	/**
+	 * Get the ids of the forms used for the votation.
+	 *
+	 * @return array
+	 */
+	protected function get_votation_form_ids(): array {
+		return json_decode( get_option( 'fvs_votation_forminator_form_ids' ) ) ?? array();
 	}
 }

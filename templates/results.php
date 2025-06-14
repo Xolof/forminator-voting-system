@@ -38,7 +38,7 @@ foreach ( $fvs_votation_results_db as $fvs_row ) {
 
 <h1><?php echo esc_html__( 'Results', 'fvs' ); ?></h1>
 
-<?php if ( ! count( FVS_VOTATION_FORM_IDS ) ) : ?>
+<?php if ( ! count( $fvs_votation_form_ids ) ) : ?>
 	<p>
 	<?php echo esc_html__( 'No forms have been selected', 'fvs' ); ?>
 	<a href="<?php echo esc_html( get_admin_url() ); ?>admin.php?page=render_votation_settings"><?php echo esc_html__( 'Select forms in settings.', 'fvs' ); ?></a>
