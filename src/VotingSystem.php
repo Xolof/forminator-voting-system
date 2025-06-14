@@ -45,12 +45,18 @@ class VotingSystem {
 	 * @return void
 	 */
 	public function init(): void {
+		$this->load_textdomain();
+
+		if ( ! $this->check_forminator_dependency() ) {
+			$this->show_message_forminator_missing();
+			return;
+		}
+
 		$this->add_menu_pages();
 		$this->process_settings();
 		$this->set_admin_notices();
 		$this->set_forminator_hooks();
 		$this->add_styles();
-		$this->load_textdomain();
 		$this->register_deactivation_hook();
 	}
 
@@ -141,6 +147,37 @@ class VotingSystem {
 				$loaded = load_plugin_textdomain( 'fvs', false, plugin_basename( $path ) );
 			},
 			5
+		);
+	}
+
+	/**
+	 * Check if Forminator plugin is active.
+	 *
+	 * If we are in the PhpUnit test environment we skip the check
+	 * by returning 'true', because the Forminator class will not be found
+	 * in the test environment.
+	 */
+	protected function check_forminator_dependency() {
+		if ( defined( 'PHPUNIT_COMPOSER_INSTALL' ) ) {
+			return true;
+		}
+
+		return is_plugin_active( 'forminator/forminator.php' );
+	}
+
+	/**
+	 * Show error message about missing Forminator dependency.
+	 *
+	 * @return void
+	 */
+	protected function show_message_forminator_missing(): void {
+		add_action(
+			'admin_notices',
+			function () {
+				echo '<div class="notice notice-error"><p>'
+				. esc_html__( 'Forminator Voting System requires the Forminator plugin in order to work.', 'fvs' )
+				. '</p></div>';
+			}
 		);
 	}
 

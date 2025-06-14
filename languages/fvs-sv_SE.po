@@ -194,3 +194,9 @@ msgstr "Du har redan röstat på det här alternativet med den här epostadresse
 msgid "Someone has already voted for this alternative with this IP address."
 msgstr ""
 "Någon har redan röstat på det här alternativet med den här IP-adressen."
+
+msgid ""
+"Forminator Voting System requires the Forminator plugin in order to work."
+msgstr ""
+"Forminator omröstningssystem behöver pluginet Forminator för att kunna "
+"fungera."
