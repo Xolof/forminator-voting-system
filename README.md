@@ -16,7 +16,7 @@ A voting system using Forminator forms.
 Compiles results from voting and shows them in WP admin interface.
 Receives only one vote per option per email address.
 Lets you allow only one vote per option per IP address.
-Enables blocking of IP addresses.
+Makes it possible to block IP addresses.
 
 ## Installation
 
