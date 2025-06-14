@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request: ~
+
+jobs:
+  phpunit:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3.0
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+    
+      - name: Run PhpCS
+        run: vendor/bin/phpcs -ps src/ debug/ templates/ forminator-voting-system.php 
+
+      - name: Run PhpStan
+        run: vendor/bin/phpstan analyse
