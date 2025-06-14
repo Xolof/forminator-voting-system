@@ -1,0 +1,196 @@
+# Copyright (C) 2025 Olof Johansson
+# This file is distributed under the same license as the Forminator Voting System plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Forminator Voting System 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/"
+"forminator_voting_system\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-06-10T18:01:41+00:00\n"
+"PO-Revision-Date: 2025-06-10T18:01:41+00:00\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: fvs\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Plugin Name of the plugin
+#: forminator-voting-system.php
+msgid "Forminator Voting System"
+msgstr "Forminator omröstningssystem"
+
+#. Plugin URI of the plugin
+#: forminator-voting-system.php
+msgid "https://github.com/xolof/forminator-voting-system"
+msgstr ""
+
+#. Description of the plugin
+#: forminator-voting-system.php
+msgid "A voting system using Forminator forms"
+msgstr "Ett omröstningssystem som använder sig av Forminator-formulär"
+
+#. Author of the plugin
+#: forminator-voting-system.php
+msgid "Olof Johansson"
+msgstr ""
+
+#. Author URI of the plugin
+#: forminator-voting-system.php
+msgid "https://oljo.online"
+msgstr ""
+
+#: classes/class-forminator-customizer.php:23
+msgid "Invalid form data:"
+msgstr "Ogilitig data:"
+
+#: classes/class-forminator-customizer.php:60
+msgid "Email address is missing."
+msgstr "Epost adress saknas."
+
+#: classes/class-settings-processor.php:26
+#: classes/class-settings-processor.php:88
+msgid "Option update failed."
+msgstr "Uppdatering av alternativ misslyckades."
+
+#: classes/class-settings-processor.php:29
+msgid "Settings saved!"
+msgstr "Inställningarna sparades!"
+
+#: classes/class-settings-processor.php:39
+msgid "Error"
+msgstr "Fel"
+
+#: classes/class-settings-processor.php:50
+msgid "Invalid IP value submitted. Blocked IPs should be a string."
+msgstr ""
+"Ogilitigt värde för IP-adresser. Ange blockerade IP-adresser separerade med "
+"kommatecken."
+
+#: classes/class-settings-processor.php:62
+msgid ""
+"Invalid value for IP-addresses. Enter blocked IP-addresses separated by "
+"comma."
+msgstr ""
+"Ogilitigt värde för IP-adresser. Ange blockerade IP-adresser separerade med "
+"kommatecken."
+
+#: classes/class-settings-processor.php:77
+msgid "Invalid form data."
+msgstr "Ogilitig data."
+
+#: templates/votation_results.php:35
+msgid "Total number of votes:"
+msgstr "Totalt antal röster:"
+
+#: templates/votation_results.php:38
+msgid "There are not yet any votes."
+msgstr "Det finns inga röster."
+
+#: templates/votation_results.php:42
+msgid "Number of votes per alternative"
+msgstr "Antal röster per alternativ"
+
+#: templates/votation_results.php:46
+msgid "Placement"
+msgstr "Placering"
+
+#: templates/votation_results.php:47
+msgid "Alternative"
+msgstr "Alternativ"
+
+#: templates/votation_results.php:48 templates/votation_results.php:83
+msgid "Number of votes"
+msgstr "Antal röster"
+
+#: templates/votation_results.php:49
+msgid "Form"
+msgstr "Formulär"
+
+#: templates/votation_results.php:78
+msgid "IP-addresses with the highest number of votes."
+msgstr "IP-adresser med flest antal röster."
+
+#: templates/votation_results.php:82
+msgid "IP addresses"
+msgstr "IP-adresser"
+
+#: templates/votation_settings.php:10
+msgid "Settings"
+msgstr "Inställningar"
+
+msgid "Results"
+msgstr "Resultat"
+
+#: templates/votation_settings.php:21
+msgid "Form for votation"
+msgstr "Formulär för omröstning"
+
+#: templates/votation_settings.php:36
+msgid "Allow multiple submissions from the same IP-address"
+msgstr "Tillåt flera inlämningar från samma Ip-adress"
+
+#: templates/votation_settings.php:44
+msgid "Blocked IP-addresses. Enter a comma separated list of IP-addresses."
+msgstr ""
+"Blockerade IP-adresser. Ange blockerade IP-adresser separerade med "
+"kommatecken."
+
+#: templates/votation_settings.php:55
+msgid "Save"
+msgstr "Spara"
+
+#: templates/votation_settings.php:59
+msgid "You are not authorized to perform this operation."
+msgstr "Du är inte behörig att uföra den operationen."
+
+msgid "Functionality"
+msgstr "Funktionalitet"
+
+msgid ""
+"Compiles results from the votation and shows them in the admin interface."
+msgstr "Sammanställer resultat från omröstning och visar upp i admin."
+
+msgid "Mark the forms to include in the votation."
+msgstr "Markera de formulär som ska vara med i omröstningen."
+
+msgid "Go to the settings for this plugin."
+msgstr "Gå till inställningarna för det här pluginet."
+
+msgid "Receives only one vote per alternative per Email address."
+msgstr "Tar endast emot en röst per alternativ per epostadress."
+
+msgid ""
+"Makes it possible to allow only one vote per alternative per IP address."
+msgstr ""
+"Gör det möjligt att endast tillåta en röst per alternativ per IP-adress."
+
+msgid "Allows for blocking of IP addresses."
+msgstr "Möjliggör blockering av IP-adresser."
+
+msgid "Get started"
+msgstr "Kom igång"
+
+msgid "Create forms in Forminator. The forms should have an Email field."
+msgstr "Skapa formulär i Forminator. Formulären ska ha ett fält för Email."
+
+msgid "Allows blocking IP addresses."
+msgstr "Möjliggör blockering av IP-adresser."
+
+msgid "Manual"
+msgstr "Manual"
+
+msgid "No forms have been selected."
+msgstr "Inga formulär har valts."
+
+msgid "Your IP address has been blocked."
+msgstr "Din IP-adress har blockerats."
+
+msgid "You have already voted for this alternative with this email address."
+msgstr "Du har redan röstat på det här alternativet med den här epostadressen."
+
+msgid "Someone has already voted for this alternative with this IP address."
+msgstr ""
+"Någon har redan röstat på det här alternativet med den här IP-adressen."
