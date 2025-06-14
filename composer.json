@@ -1,4 +1,13 @@
 {
+  "name": "xolof/forminator_voting_system",
+  "description": "A voting system using Forminator forms.",
+  "license": "MIT",
+  "authors": [
+    {
+        "name": "Olof Johansson",
+        "email": "oljo@protonmail.ch"
+    }
+  ],
   "require-dev": {
     "wp-cli/i18n-command": "^2",
     "wp-coding-standards/wpcs": "^3.0",
