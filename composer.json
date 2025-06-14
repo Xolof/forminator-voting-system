@@ -1,0 +1,17 @@
+{
+  "require-dev": {
+    "wp-cli/i18n-command": "^2",
+    "wp-coding-standards/wpcs": "^3.0",
+    "phpunit/phpunit": "^9.6",
+    "yoast/phpunit-polyfills": "^4.0",
+    "phpstan/phpstan": "^2.1"
+  },
+  "scripts": {
+    "makepot": "wp i18n make-pot ."
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}
