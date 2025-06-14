@@ -74,7 +74,7 @@ class MenuManager {
 	 *
 	 * @return void
 	 */
-	public function render_votation_results() {
+	public function render_votation_results(): void {
 		$fvs_votation_form_ids = $this->get_votation_form_ids();
 
 		if ( ! $fvs_votation_form_ids ) {
@@ -92,7 +92,7 @@ class MenuManager {
 	 *
 	 * @return void
 	 */
-	public function render_votation_manual() {
+	public function render_votation_manual(): void {
 		require_once __DIR__ . '/../templates/manual.php';
 	}
 
@@ -101,7 +101,7 @@ class MenuManager {
 	 *
 	 * @return void
 	 */
-	public function render_votation_settings() {
+	public function render_votation_settings(): void {
 
 		$fvs_votation_forminator_forms = \Forminator_API::get_forms();
 

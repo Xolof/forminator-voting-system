@@ -133,7 +133,7 @@ class VotingSystem {
 	 *
 	 * @return void
 	 */
-	protected function load_textdomain() {
+	protected function load_textdomain(): void {
 		add_action(
 			'plugins_loaded',
 			function () {
