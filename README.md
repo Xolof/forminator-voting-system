@@ -1,3 +1,5 @@
+[![CI](https://github.com/Xolof/forminator-voting-system/actions/workflows/ci.yml/badge.svg)](https://github.com/Xolof/forminator-voting-system/actions/workflows/ci.yml)
+
 # Forminator Voting System
 
 * Tags: voting, votation
@@ -20,7 +22,7 @@ Makes it possible to block IP addresses.
 
 ## Installation
 
-1. Install the plugin Forminator. 
+1. Install the plugin Forminator.
 2. Upload the directory `forminator_voting_system` to the `/wp-content/plugins/` directory
 3. Activate the plugin through the 'Plugins' menu in WordPress
 4. Create Forminator forms. The forms should have an email field.
