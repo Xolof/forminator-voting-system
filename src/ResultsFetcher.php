@@ -13,6 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use ForminatorVotingSystem\FvsException\TableNotFoundException;
+
 /**
  * ResultsFetcher
  *
@@ -129,7 +131,7 @@ class ResultsFetcher {
 	 * @param string $tablename_without_prefix The tablename without prefix.
 	 * @return string
 	 *
-	 * @throws Exception Throws Exception if the table does not exist.
+	 * @throws TableNotFoundException Throws TableNotFoundException if the table does not exist.
 	 */
 	public function get_table_name_with_prefix( string $tablename_without_prefix ): string {
 		global $wpdb;
@@ -147,7 +149,7 @@ class ResultsFetcher {
 			return $prefixed_tablename;
 		}
 
-		throw new Exception( esc_html( "Table $prefixed_tablename not found." ) );
+		throw new TableNotFoundException( esc_html( "Table $prefixed_tablename not found." ) );
 	}
 
 	/**
