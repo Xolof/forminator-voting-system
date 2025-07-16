@@ -204,7 +204,7 @@ class ForminatorCustomizer {
 	 * @return array
 	 */
 	protected function get_forminator_form_ids(): array {
-		return json_decode( get_option( 'fvs_votation_forminator_form_ids' ) );
+		return json_decode( get_option( 'fvs_votation_forminator_form_ids' ) ) ?? array();
 	}
 
 	/**
@@ -222,6 +222,6 @@ class ForminatorCustomizer {
 	 * @return array
 	 */
 	protected function multiple_votes_from_same_ip_is_allowed(): string {
-		return json_decode( get_option( 'fvs_allow_multiple_votes_from_same_ip' ) ) ?? array();
+		return json_decode( get_option( 'fvs_allow_multiple_votes_from_same_ip' ) ) ?? '';
 	}
 }
