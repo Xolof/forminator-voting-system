@@ -44,14 +44,11 @@ class ResultsFetcher {
 			form_id, COUNT(*) as num_votes, %i.meta_value as alternative
 			FROM %i
 		LEFT JOIN %i
-			USING(entry_id)
-		LEFT JOIN %i
-			ON post_id=form_id 
+			ON post_id=form_id
 		WHERE
 			form_id IN ($votation_form_id_placeholders)
-			AND %i.meta_key="email-1"
 		GROUP BY form_id;
-	EOD;
+		EOD;
 
 		$statement = $wpdb->prepare(
 			$votation_result_query,
@@ -59,15 +56,14 @@ class ResultsFetcher {
 				array(
 					$postmeta,
 					$frmt_form_entry,
-					$frmt_form_entry_meta,
 					$postmeta,
 				),
 				$this->get_forminator_form_ids(),
-				array( $frmt_form_entry_meta )
 			)
 		);
 
 		$results = $wpdb->get_results( $statement ); // phpcs:ignore
+
 		return $results;
 	}
 
